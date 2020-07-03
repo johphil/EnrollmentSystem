@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using EnrollmentSystem.ViewModel;
 
 namespace EnrollmentSystem
 {
@@ -23,25 +24,56 @@ namespace EnrollmentSystem
     /// </summary>
     public partial class LoginWindow : Window
     {
+        LoginVM viewModel = new LoginVM();
         public LoginWindow()
         {
+            DataContext = viewModel;
+
             InitializeComponent();
-            TestConnection();
         }
 
-        private void TestConnection()
+        private int Login(string Account, string Password)
         {
             try 
-            { 
+            {
                 using (SqlConnection connection = new SqlConnection(Common.CON_ACCOUNTDB))
                 {
-                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("spLoginAccount", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@account", SqlDbType.Int).Value = Account;
+                        command.Parameters.Add("@password", SqlDbType.VarChar, 64).Value = Password;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return reader.GetInt32(0);
+                            }
+                            else
+                                return -1;
+                        }
+                    }
                 }
-                tbStatus.Text = "SUCCESS";
             }
             catch
             {
-                tbStatus.Text = "FAIL";
+                return -1;
+            }
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            int memberID = Login(viewModel.Account, tbPassword.Password);
+            if (memberID >= 0)
+            {
+                string loginSuccess = $"Login Success Member ID : { memberID }";
+                MessageBox.Show(loginSuccess, "SUCCESS");
+            }
+            else
+            {
+                MessageBox.Show("fAILED!", "FAILED!");
             }
         }
     }

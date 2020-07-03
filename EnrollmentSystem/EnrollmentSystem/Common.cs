@@ -11,5 +11,8 @@ namespace EnrollmentSystem
     {
         public static string CON_ACCOUNTDB = ConfigurationManager.ConnectionStrings["AccountDB"]?.ConnectionString;
         public static string CON_ENROLLMENTDB = ConfigurationManager.ConnectionStrings["EnrollmentDB"]?.ConnectionString;
+
+
+        public static string ERROR_FAIL_CONNECTION = "Connection to the database could not be established.";
     }
 }

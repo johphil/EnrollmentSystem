@@ -71,21 +71,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\Login.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="LoginWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -113,17 +103,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Admin\" />
-    <Folder Include="Model\Registrar\" />
-    <Folder Include="Model\Student\" />
-    <Folder Include="ViewModel\Admin\" />
-    <Folder Include="ViewModel\Registrar\" />
-    <Folder Include="ViewModel\Student\" />
-    <Folder Include="View\Admin\" />
-    <Folder Include="View\Registrar\" />
-    <Folder Include="View\Student\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

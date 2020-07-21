@@ -1,0 +1,35 @@
+﻿<Window x:Class="EnrollmentAdmin.View.ScheduleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnrollmentAdmin.View"
+        mc:Ignorable="d"
+        Title="Course Schedules" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <DataGrid x:Name="dgCourseSchedules" Margin="10,83,10,40" ColumnWidth="*"/>
+        <StatusBar Height="35" VerticalAlignment="Bottom">
+            <Label x:Name="lblStatusCourseSection" Content="Selected Course and Section"/>
+            <Label Content=""/>
+        </StatusBar>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Logout"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Course Schedule">
+                    <MenuItem x:Name="menuNewSchedule" Header="New Schedule" Click="menuNewSchedule_Click"/>
+                    <MenuItem Header="Edit Schedule"/>
+                    <MenuItem Header="Remove Schedule"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Courses"/>
+                <MenuItem Header="Students"/>
+            </MenuItem>
+        </Menu>
+        <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Schedules" VerticalAlignment="Top" Style="{StaticResource txtTitle}"/>
+    </Grid>
+</Window>

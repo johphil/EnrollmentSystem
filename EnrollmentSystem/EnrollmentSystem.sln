@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnrollmentRegistrar", "Enro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnrollmentStudent", "EnrollmentStudent\EnrollmentStudent.csproj", "{6F422CBB-8238-449E-983E-F42375D9471F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountRegistration", "AccountRegistration\AccountRegistration.csproj", "{D51634C6-BE26-4DDF-AEB7-7D8FA9023CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D484F457-71B5-402F-B14F-85F1F9DD4906}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{6F422CBB-8238-449E-983E-F42375D9471F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F422CBB-8238-449E-983E-F42375D9471F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F422CBB-8238-449E-983E-F42375D9471F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51634C6-BE26-4DDF-AEB7-7D8FA9023CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51634C6-BE26-4DDF-AEB7-7D8FA9023CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51634C6-BE26-4DDF-AEB7-7D8FA9023CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51634C6-BE26-4DDF-AEB7-7D8FA9023CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D484F457-71B5-402F-B14F-85F1F9DD4906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D484F457-71B5-402F-B14F-85F1F9DD4906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D484F457-71B5-402F-B14F-85F1F9DD4906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D484F457-71B5-402F-B14F-85F1F9DD4906}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

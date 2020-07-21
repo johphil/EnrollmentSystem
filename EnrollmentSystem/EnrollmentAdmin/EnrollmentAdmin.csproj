@@ -56,10 +56,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="LoginWindow.xaml">
+    <Compile Include="AddCourse.xaml.cs">
+      <DependentUpon>AddCourse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\Schedule.cs" />
+    <Compile Include="Model\Sections.cs" />
+    <Compile Include="Model\TermSchoolYear.cs" />
+    <Compile Include="Model\TimeSlotBase.cs" />
+    <Compile Include="Db.cs" />
+    <Compile Include="CurriculumAdd.xaml.cs">
+      <DependentUpon>CurriculumAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CourseLookupView.xaml.cs">
+      <DependentUpon>CourseLookupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditRoomView.xaml.cs">
+      <DependentUpon>EditRoomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewScheduleView.xaml.cs">
+      <DependentUpon>NewScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimeSlotView.xaml.cs">
+      <DependentUpon>TimeSlotView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AddCourse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CurriculumAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CourseLookupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditRoomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,10 +107,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\NewScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimeSlotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -99,7 +151,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d484f457-71b5-402f-b14f-85f1f9dd4906}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

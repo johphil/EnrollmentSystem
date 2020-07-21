@@ -1,0 +1,25 @@
+﻿<Window x:Class="EnrollmentAdmin.View.CourseLookupView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnrollmentAdmin.View"
+        mc:Ignorable="d"
+        Title="Course Lookup" Height="432" Width="658.996">
+    <Grid>
+        <Label Content="Search Source Code" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" HorizontalAlignment="Left" Width="121"/>
+        <TextBox x:Name="tbSearch" Height="26" Margin="136,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource tbInputText}" TextChanged="tbSearch_TextChanged"/>
+        <DataGrid x:Name="dgCourse" Margin="10,41,10,81" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="Code" Binding="{Binding Code}" CellStyle="{StaticResource dgCellAlignCenter}"/>
+                <DataGridTextColumn Width="350" Header="Description" Binding="{Binding Description}" CellStyle="{StaticResource dgCellAlignLeft}"/>
+                <DataGridTextColumn Width="50" Header="Credit" Binding="{Binding Credit}" CellStyle="{StaticResource dgCellAlignCenter}"/>
+                <DataGridTextColumn Width="60" Header="Lec. Hrs." Binding="{Binding LectureHours}" CellStyle="{StaticResource dgCellAlignCenter}"/>
+                <DataGridTextColumn Width="60" Header="Lab. Hrs." Binding="{Binding LabHours}" CellStyle="{StaticResource dgCellAlignCenter}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Right" Margin="0,0,90,16" VerticalAlignment="Bottom" Width="75" Style="{DynamicResource btnCancel}" Click="btnCancel_Click" IsCancel="True"/>
+        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Right" Margin="0,0,10,16" VerticalAlignment="Bottom" Width="75" Style="{DynamicResource btnOk}" Click="btnOk_Click" IsDefault="True"/>
+
+    </Grid>
+</Window>

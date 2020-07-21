@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnrollmentSystem.Properties
+namespace AccountRegistration.Properties
 {
 
 

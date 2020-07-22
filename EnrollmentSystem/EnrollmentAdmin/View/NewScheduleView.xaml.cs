@@ -44,17 +44,19 @@ namespace EnrollmentAdmin.View
             dgTimeSlot.ItemsSource = DtSchedule.DefaultView;
         }
 
-        private void LoadSections(int CourseID)
+        private void LoadSections()
         {
             if (cbSection.Items.Count > 0)
                 cbSection.Items.Clear();
 
-            lSection = Db.GetSections(CourseID);
+            lSection = Db.GetSections(CourseSchedule);
 
             foreach (Sections s in lSection)
             {
                 cbSection.Items.Add(s.Code);
             }
+
+            CourseSchedule.SectionID = 0;
         }
 
         private void LoadTermSY()
@@ -72,7 +74,7 @@ namespace EnrollmentAdmin.View
             if (cbTermSY.Items.Count > 0)
             {
                 cbTermSY.SelectedIndex = 0;
-                CourseSchedule.TermSchoolYearID = 0;
+                CourseSchedule.TermSchoolYearID = lTermSY[cbTermSY.SelectedIndex].ID;
             }
         }
 
@@ -80,21 +82,35 @@ namespace EnrollmentAdmin.View
         {
             try
             {
-                int time = dgTimeSlot.Items.IndexOf(dgTimeSlot.CurrentCell.Item);
-                int day = dgTimeSlot.SelectedCells[0].Column.DisplayIndex + 1;
+                if (CourseSchedule.CourseID == 0 ||
+                    CourseSchedule.SectionID == 0 ||
+                    CourseSchedule.TermSchoolYearID == 0)
+                {
+                    MessageBox.Show("Please Select Course/Section and TermSY.");
+                }
+                else
+                {
 
-                string strTime = DtSchedule.Rows[time]["TimeSlot"].ToString();
-                string strDay = dgTimeSlot.SelectedCells[0].Column.Header.ToString();
-                string strDayTime = string.Format("{0} {1}", strDay, strTime);
-                string strRoom = DtSchedule.Rows[time][day].ToString();
-                string strCourseSec = string.Format("{0} / {1}", SelectedCourse.Code, cbSection.SelectedItem);
-                EditRoomView erView = new EditRoomView(strDayTime, strCourseSec, strRoom);
-                erView.ShowDialog();
+                    int time = dgTimeSlot.Items.IndexOf(dgTimeSlot.CurrentCell.Item);
+                    int day = dgTimeSlot.SelectedCells[0].Column.DisplayIndex + 1;
 
-                DtSchedule.Rows[time][day] = erView.Room;
+                    string strTime = DtSchedule.Rows[time]["TimeSlot"].ToString();
+                    string strDay = dgTimeSlot.SelectedCells[0].Column.Header.ToString();
+                    string strDayTime = string.Format("{0} {1}", strDay, strTime);
+                    string strRoom = DtSchedule.Rows[time][day].ToString();
+                    string strCourseSec = string.Format("{0} / {1}", SelectedCourse.Code, cbSection.SelectedItem);
+                    EditRoomView erView = new EditRoomView(strDayTime, strCourseSec, strRoom);
+                    erView.ShowDialog();
+
+                    DtSchedule.Rows[time][day] = erView.Room;
+                }
+                dgTimeSlot.UnselectAllCells();
             }
             catch
-            { }
+            {
+                if (dgTimeSlot.SelectedItem != null)
+                    dgTimeSlot.UnselectAllCells();
+            }
         }
 
         private void tbCourse_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -106,7 +122,7 @@ namespace EnrollmentAdmin.View
                 SelectedCourse = clView.SelectedCourse;
                 CourseSchedule.CourseID = clView.SelectedCourse.ID;
                 tbCourse.Text = SelectedCourse.Code;
-                LoadSections(clView.SelectedCourse.ID);
+                LoadSections();
             }
         }
 
@@ -114,6 +130,15 @@ namespace EnrollmentAdmin.View
         {
             if (cbSection.Items.Count > 0)
                 CourseSchedule.SectionID = lSection[cbSection.SelectedIndex].ID;
+        }
+
+        private void cbTermSY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTermSY.SelectedIndex != -1)
+            {
+                CourseSchedule.TermSchoolYearID = lTermSY[cbTermSY.SelectedIndex].ID;
+                LoadSections();
+            }
         }
     }
 }

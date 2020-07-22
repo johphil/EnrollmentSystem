@@ -58,7 +58,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET SECTIONS
-        public static List<Sections> GetSections(int CourseID)
+        public static List<Sections> GetSections(Schedule schedule)
         {
             try
             {
@@ -68,7 +68,8 @@ namespace EnrollmentAdmin
                     using (SqlCommand command = new SqlCommand("spGetSections", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("courseid", SqlDbType.Int).Value = CourseID;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = schedule.CourseID;
+                        command.Parameters.Add("termsyid", SqlDbType.Int).Value = schedule.TermSchoolYearID;
 
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())

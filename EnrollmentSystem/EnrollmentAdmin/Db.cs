@@ -10,6 +10,7 @@ using System.Data;
 using EnrollmentAdmin.Model;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Common;
 
 namespace EnrollmentAdmin
 {
@@ -32,7 +33,7 @@ namespace EnrollmentAdmin
                         command.CommandType = CommandType.StoredProcedure;
 
                         connection.Open();
-                        using(SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -93,6 +94,7 @@ namespace EnrollmentAdmin
                 return null;
             }
         }
+        //GET TERM AND SCHOOLYEAR
         public static List<TermSchoolYear> GetTermSY()
         {
             try
@@ -116,6 +118,68 @@ namespace EnrollmentAdmin
                                     TermSY = reader.GetString(1),
                                     DateStart = reader.GetDateTime(2),
                                     DateEnd = reader.GetDateTime(3)
+                                });
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //INSERT COURSE SCHEDULE
+        public static int InsertCourseSchedule(Schedule CourseSchedule)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spInsertCourseSchedule", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = CourseSchedule.CourseID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = CourseSchedule.TermSchoolYearID;
+                        command.Parameters.Add("sectionid", SqlDbType.Int).Value = CourseSchedule.SectionID;
+                        command.Parameters.Add("rooms", SqlDbType.VarChar).Value = CourseSchedule.Rooms;
+
+                        connection.Open();
+                        return command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+        }
+        //GET COURSE SCHEDULES
+        public static List<Globals.COURSE_SCHEDULE> GetCourseSchedules()
+        {
+            try
+            {
+                List<Globals.COURSE_SCHEDULE> collection = new List<Globals.COURSE_SCHEDULE>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCourseSchedule", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(new Globals.COURSE_SCHEDULE()
+                                {
+                                    ID = reader.GetInt32(0),
+                                    Course = reader.GetString(1),
+                                    Section = reader.GetString(2),
+                                    TermSY = reader.GetString(3)
                                 });
                             }
                         }

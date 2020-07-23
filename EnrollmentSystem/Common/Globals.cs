@@ -19,6 +19,14 @@ namespace Common
         //ERROR STRINGS
         public const string ERROR_FAIL_CONNECTION = "Connection to the database could not be established.";
 
+        public struct COURSE_SCHEDULE
+        {
+            public int ID { get; set; }
+            public string Course { get; set; }
+            public string Section { get; set; }
+            public string TermSY { get; set; }
+        }
+
         //GENERATE MD5 HASH WITH SALT
         public static string MD5Hash(string text)
         {

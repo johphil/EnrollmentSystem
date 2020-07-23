@@ -7,7 +7,43 @@
         mc:Ignorable="d"
         Title="Course Schedules" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="dgCourseSchedules" Margin="10,83,10,40" ColumnWidth="*"/>
+        <DataGrid x:Name="dgCourseSchedules" Margin="10,83,10,40" ColumnWidth="*" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course" Binding="{Binding Course}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                            <Setter Property="TextBlock.Padding" Value="10 3 10 3"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Section" Binding="{Binding Section}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Padding" Value="10 3 10 3"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Term" Binding="{Binding TermSY}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.Padding" Value="10 3 10 3"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <StatusBar Height="35" VerticalAlignment="Bottom">
             <Label x:Name="lblStatusCourseSection" Content="Selected Course and Section"/>
             <Label Content=""/>
@@ -31,5 +67,7 @@
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Schedules" VerticalAlignment="Top" Style="{StaticResource txtTitle}"/>
+        <Label Content="Term &amp; SY" HorizontalAlignment="Left" Margin="558,30,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
+        <ComboBox x:Name="cbTermSY" HorizontalAlignment="Left" Margin="651,30,0,0" VerticalAlignment="Top" Width="131" Height="26"/>
     </Grid>
 </Window>

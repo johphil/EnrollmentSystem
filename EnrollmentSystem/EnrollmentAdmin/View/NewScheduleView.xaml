@@ -5,20 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnrollmentAdmin.View"
         mc:Ignorable="d"
-        Title="New Course Schedule" MinHeight="630" MinWidth="1085" Height="667" Width="1085">
+        Title="Course Schedule" MinHeight="737" MinWidth="1085" Height="737" Width="1085" ResizeMode="NoResize">
     <Grid Style="{DynamicResource gridContent}" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="85*"/>
-            <RowDefinition Height="551*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Course" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
         <Label Content="Term &amp; SY" HorizontalAlignment="Left" Margin="468,36,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
         <Label Content="Section" HorizontalAlignment="Left" Margin="239,36,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
-        <Label Content="Time Slot" HorizontalAlignment="Left" Margin="10,0,0,515" VerticalAlignment="Bottom" Style="{DynamicResource labelGeneral}" Width="88" Height="26" Grid.Row="1"/>
+        <Label Content="Lecture Hours" HorizontalAlignment="Left" Margin="10,95,0,0" Style="{DynamicResource labelGeneral}" Width="88" Height="26" VerticalAlignment="Top"/>
         <ComboBox x:Name="cbTermSY" HorizontalAlignment="Left" Margin="561,36,0,0" VerticalAlignment="Top" Width="131" Height="26" SelectionChanged="cbTermSY_SelectionChanged"/>
         <ComboBox x:Name="cbSection" HorizontalAlignment="Left" Margin="332,36,0,0" VerticalAlignment="Top" Width="131" Height="26" SelectionChanged="cbSection_SelectionChanged"/>
         <Separator Height="18" Margin="10,67,10,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgTimeSlot" Margin="10,0,10,10" IsReadOnly="True" ColumnWidth="*" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionUnit="Cell" SelectionMode="Single" Height="481" VerticalAlignment="Bottom" AutoGenerateColumns="False" CanUserSortColumns="False" PreviewMouseUp="dgTimeSlot_PreviewMouseUp" RowHeaderWidth="0" MinRowHeight="40" Grid.Row="1">
+        <DataGrid x:Name="dgTimeSlot" Margin="10,145,10,0" IsReadOnly="True" ColumnWidth="*" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionUnit="Cell" SelectionMode="Single" AutoGenerateColumns="False" CanUserSortColumns="False" PreviewMouseUp="dgTimeSlot_PreviewMouseUp" RowHeaderWidth="0" MinRowHeight="40" Height="481" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="" Binding="{Binding TimeSlot}" CellStyle="{DynamicResource dgCellDisableSelect}">
                     <DataGridTextColumn.ElementStyle>
@@ -110,7 +109,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Separator Height="14" Margin="10,0,10,496" VerticalAlignment="Bottom" Grid.Row="1"/>
+        <Separator Margin="10,126,10,0" Height="14" VerticalAlignment="Top"/>
         <TextBox x:Name="tbCourse" HorizontalAlignment="Left" Height="26" Margin="103,36,0,0" TextWrapping="Wrap" Text="Click Here" VerticalAlignment="Top" Width="131" Style="{DynamicResource tbInputText}" IsReadOnly="True" HorizontalContentAlignment="Center" CharacterCasing="Upper" Cursor="Hand" PreviewMouseDown="tbCourse_PreviewMouseDown"/>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
@@ -119,5 +118,11 @@
                 <MenuItem Header="Exit"/>
             </MenuItem>
         </Menu>
+        <Label x:Name="lblLecHrs" Content="0" HorizontalAlignment="Left" Margin="103,95,0,0" Width="77" Style="{DynamicResource labelValue}" Height="26" VerticalAlignment="Top"/>
+        <Label Content="Lab Hours" HorizontalAlignment="Left" Margin="187,95,0,0" Style="{DynamicResource labelGeneral}" Width="88" Height="26" VerticalAlignment="Top"/>
+        <Label x:Name="lblLabHrs" Content="0" HorizontalAlignment="Left" Margin="280,95,0,0" Width="77" Style="{DynamicResource labelValue}" Height="26" VerticalAlignment="Top"/>
+        <Button x:Name="btnSave" Content="SAVE" Margin="0,631,12,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnSave}" HorizontalAlignment="Right" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Right" Margin="0,631,92,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnCancel}" Click="btnCancel_Click"/>
+        <Button x:Name="btnRemove" Content="REMOVE" HorizontalAlignment="Left" Margin="10,631,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnRemove}" Visibility="Hidden" IsEnabled="False"/>
     </Grid>
 </Window>

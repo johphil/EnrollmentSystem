@@ -8,8 +8,10 @@ namespace EnrollmentAdmin.Model
 {
     public class Schedule
     {
+        public int ID { get; set; }
         public int CourseID { get; set; }
         public int TermSchoolYearID { get; set; }
         public int SectionID { get; set; }
+        public string Rooms { get; set; }
     }
 }

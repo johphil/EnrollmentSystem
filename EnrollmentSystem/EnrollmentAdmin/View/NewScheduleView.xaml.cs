@@ -23,7 +23,6 @@ namespace EnrollmentAdmin.View
     /// </summary>
     public partial class NewScheduleView : Window
     {
-        TimeSlotBase SCLASS = new TimeSlotBase();
         private static DataTable DtSchedule;
         private static Course SelectedCourse = null;
         private static Schedule CourseSchedule = new Schedule();
@@ -78,6 +77,20 @@ namespace EnrollmentAdmin.View
             }
         }
 
+        private void UpdateTSRoom()
+        {
+            string Monday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Monday".ToString())));
+            string Tuesday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Tuesday".ToString())));
+            string Wednesday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Wednesday".ToString())));
+            string Thursday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Thursday".ToString())));
+            string Friday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Friday".ToString())));
+            string Saturday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Saturday".ToString())));
+            string Sunday = String.Join(",", DtSchedule.AsEnumerable().Select(x => x.Field<string>("Sunday".ToString())));
+
+            CourseSchedule.Rooms = Monday + Tuesday + Wednesday + Thursday + Friday + Saturday + Sunday;
+        }
+
+
         private void dgTimeSlot_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -103,6 +116,7 @@ namespace EnrollmentAdmin.View
                     erView.ShowDialog();
 
                     DtSchedule.Rows[time][day] = erView.Room;
+                    UpdateTSRoom();
                 }
                 dgTimeSlot.UnselectAllCells();
             }
@@ -122,6 +136,8 @@ namespace EnrollmentAdmin.View
                 SelectedCourse = clView.SelectedCourse;
                 CourseSchedule.CourseID = clView.SelectedCourse.ID;
                 tbCourse.Text = SelectedCourse.Code;
+                lblLabHrs.Content = SelectedCourse.LabHours.ToString();
+                lblLecHrs.Content = SelectedCourse.LectureHours.ToString();
                 LoadSections();
             }
         }
@@ -139,6 +155,20 @@ namespace EnrollmentAdmin.View
                 CourseSchedule.TermSchoolYearID = lTermSY[cbTermSY.SelectedIndex].ID;
                 LoadSections();
             }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (Db.InsertCourseSchedule(CourseSchedule) > 0)
+            {
+                MessageBox.Show("Success");
+                this.Close();
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

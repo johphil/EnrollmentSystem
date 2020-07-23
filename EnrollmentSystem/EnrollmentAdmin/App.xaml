@@ -128,11 +128,10 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="TextBlock.TextAlignment" Value="Right" />
         </Style>
-        
+
         <Style x:Key="dgCellDisableSelect" TargetType="DataGridCell">
             <Setter Property="IsHitTestVisible" Value="False"/>
         </Style>
-        
-        
+
     </Application.Resources>
 </Application>

@@ -61,7 +61,7 @@
     </Compile>
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Schedule.cs" />
-    <Compile Include="Model\Sections.cs" />
+    <Compile Include="Model\Section.cs" />
     <Compile Include="Model\TermSchoolYear.cs" />
     <Compile Include="Model\TimeSlotBase.cs" />
     <Compile Include="Db.cs" />
@@ -74,14 +74,11 @@
     <Compile Include="View\EditRoomView.xaml.cs">
       <DependentUpon>EditRoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NewScheduleView.xaml.cs">
-      <DependentUpon>NewScheduleView.xaml</DependentUpon>
+    <Compile Include="View\CourseScheduleView.xaml.cs">
+      <DependentUpon>CourseScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TimeSlotView.xaml.cs">
-      <DependentUpon>TimeSlotView.xaml</DependentUpon>
     </Compile>
     <Page Include="AddCourse.xaml">
       <SubType>Designer</SubType>
@@ -111,15 +108,11 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\NewScheduleView.xaml">
+    <Page Include="View\CourseScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ScheduleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TimeSlotView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

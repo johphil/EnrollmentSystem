@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Common;
 
 namespace EnrollmentAdmin.View
 {
@@ -32,7 +33,9 @@ namespace EnrollmentAdmin.View
             lblTimeSlot.Content = timeslot;
             lblCourseSec.Content = coursesec;
             Room = room;
-            tbRoom.Text = room;
+            
+            //if (room != Globals.TABLE_BLANK)
+                tbRoom.Text = room;
 
             tbRoom.Focus();
             tbRoom.SelectAll();

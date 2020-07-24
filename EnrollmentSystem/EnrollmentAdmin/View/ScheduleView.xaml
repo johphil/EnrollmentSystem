@@ -63,21 +63,20 @@
         </StatusBar>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Logout"/>
+                <MenuItem x:Name="menuLogout" Header="Logout" Click="menuLogout_Click"/>
                 <Separator/>
-                <MenuItem Header="Exit"/>
+                <MenuItem x:Name="menuExit" Header="Exit" Click="menuExit_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Course Schedule">
                     <MenuItem x:Name="menuNewSchedule" Header="New Schedule" Click="menuNewSchedule_Click"/>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem Header="Courses"/>
-                <MenuItem Header="Students"/>
+                <MenuItem Header="Curriculum">
+                    <MenuItem x:Name="menuNewCurriculum" Header="Add Course Curriculum" Click="menuNewCurriculum_Click"/>
+                </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Schedules" VerticalAlignment="Top" Style="{StaticResource txtTitle}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Course Schedules" VerticalAlignment="Top" Style="{StaticResource txtTitle}"/>
         <Label Content="Term &amp; SY" HorizontalAlignment="Right" Margin="0,30,146,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
         <ComboBox x:Name="cbTermSY" HorizontalAlignment="Right" Margin="0,30,10,0" VerticalAlignment="Top" Width="131" Height="26" SelectionChanged="cbTermSY_SelectionChanged" IsEditable="True"/>
         <TextBox x:Name="tbCourse" HorizontalAlignment="Right" Height="26" Margin="0,30,239,0" TextWrapping="Wrap" Text="Search Course" VerticalAlignment="Top" Width="131" Style="{DynamicResource tbInputText}" IsReadOnly="True" HorizontalContentAlignment="Center" CharacterCasing="Upper" Cursor="Hand" PreviewMouseDown="tbCourse_PreviewMouseDown"/>

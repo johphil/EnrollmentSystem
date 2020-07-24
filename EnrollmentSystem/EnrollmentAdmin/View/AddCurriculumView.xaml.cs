@@ -17,9 +17,9 @@ namespace EnrollmentAdmin
     /// <summary>
     /// Interaction logic for CurriculumAdd.xaml
     /// </summary>
-    public partial class CurriculumAdd : Window
+    public partial class AddCurriculumView : Window
     {
-        public CurriculumAdd()
+        public AddCurriculumView()
         {
             InitializeComponent();
         }

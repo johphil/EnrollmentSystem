@@ -33,6 +33,7 @@ namespace EnrollmentAdmin.View
 
         private bool isEdit = false;
 
+        //New 
         public CourseScheduleView()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace EnrollmentAdmin.View
             LoadSections();
         }
 
+        //Edit
         public CourseScheduleView(string windowTitle, Schedule schedule)
         {
             InitializeComponent();
@@ -319,6 +321,31 @@ namespace EnrollmentAdmin.View
                 MessageBox.Show("Remove Success");
                 this.Close();
             }
+        }
+
+        private void menuSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (isEdit)
+            {
+                if (Db.UpdateCourseSchedule(CourseSchedule) > 0)
+                {
+                    MessageBox.Show("Update Success");
+                    this.Close();
+                }
+            }
+            else
+            {
+                if (Db.InsertCourseSchedule(CourseSchedule) > 0)
+                {
+                    MessageBox.Show("Save Success");
+                    this.Close();
+                }
+            }
+        }
+
+        private void menuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

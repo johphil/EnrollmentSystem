@@ -30,7 +30,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Monday">
+                <DataGridTemplateColumn Header="Monday" CanUserReorder="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
@@ -113,10 +113,8 @@
         <TextBox x:Name="tbCourse" HorizontalAlignment="Left" Height="26" Margin="103,36,0,0" TextWrapping="Wrap" Text="Click Here" VerticalAlignment="Top" Width="131" Style="{DynamicResource tbInputText}" IsReadOnly="True" HorizontalContentAlignment="Center" CharacterCasing="Upper" Cursor="Hand" PreviewMouseDown="tbCourse_PreviewMouseDown"/>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem Header="New"/>
-                <MenuItem Header="Save"/>
-                <MenuItem Header="Refresh"/>
-                <MenuItem Header="Exit"/>
+                <MenuItem x:Name="menuSave" Header="Save" Click="menuSave_Click"/>
+                <MenuItem x:Name="menuExit" Header="Exit" Click="menuExit_Click"/>
             </MenuItem>
         </Menu>
         <Label x:Name="lblLecHrs" Content="0" HorizontalAlignment="Left" Margin="103,95,0,0" Width="77" Style="{DynamicResource labelValue}" Height="26" VerticalAlignment="Top"/>

@@ -22,9 +22,9 @@ namespace EnrollmentStudent
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginView : Window
     {
-        public LoginWindow()
+        public LoginView()
         {
             InitializeComponent();
             TbAccount.Focus();
@@ -46,14 +46,14 @@ namespace EnrollmentStudent
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(Common.CON_ACCOUNTDB))
+                using (SqlConnection connection = new SqlConnection(Db.CON_ACCOUNTDB))
                 {
                     using (SqlCommand command = new SqlCommand("spLoginAccount", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add("@account", SqlDbType.VarChar, 16).Value = Account;
                         command.Parameters.Add("@password", SqlDbType.VarChar, 64).Value = Password;
-                        command.Parameters.Add("@member", SqlDbType.Int).Value = Common.AUTH_STUDENT;
+                        command.Parameters.Add("@member", SqlDbType.Int).Value = Db.AUTH_STUDENT;
 
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())

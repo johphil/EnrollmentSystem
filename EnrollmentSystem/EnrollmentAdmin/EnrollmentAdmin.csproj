@@ -65,8 +65,8 @@
     <Compile Include="Model\TermSchoolYear.cs" />
     <Compile Include="Model\TimeSlotBase.cs" />
     <Compile Include="Db.cs" />
-    <Compile Include="CurriculumAdd.xaml.cs">
-      <DependentUpon>CurriculumAdd.xaml</DependentUpon>
+    <Compile Include="View\AddCurriculumView.xaml.cs">
+      <DependentUpon>AddCurriculumView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CourseLookupView.xaml.cs">
       <DependentUpon>CourseLookupView.xaml</DependentUpon>
@@ -84,7 +84,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CurriculumAdd.xaml">
+    <Page Include="View\AddCurriculumView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

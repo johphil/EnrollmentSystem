@@ -7,7 +7,7 @@ using System.Configuration;
 
 namespace EnrollmentStudent
 {
-    public static class Common
+    public static class Db
     {
         //SQL CONNECTION
         public static string CON_ACCOUNTDB = ConfigurationManager.ConnectionStrings["AccountDB"]?.ConnectionString;

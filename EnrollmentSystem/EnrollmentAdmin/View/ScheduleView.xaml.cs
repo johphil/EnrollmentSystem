@@ -140,5 +140,23 @@ namespace EnrollmentAdmin.View
             Db.DeleteCourseSchedule(row.ID);
             LoadTermSY();
         }
+
+        private void menuExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void menuLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginView lView = new LoginView();
+            lView.Show();
+            this.Close();
+        }
+
+        private void menuNewCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            AddCurriculumView acView = new AddCurriculumView();
+            acView.ShowDialog();
+        }
     }
 }

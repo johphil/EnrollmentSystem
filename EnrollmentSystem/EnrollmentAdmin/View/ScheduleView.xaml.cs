@@ -1,19 +1,9 @@
-﻿using EnrollmentAdmin.Model;
-using System;
+﻿using Common;
+using Common.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Common;
-using System.Data;
 
 namespace EnrollmentAdmin.View
 {
@@ -37,7 +27,7 @@ namespace EnrollmentAdmin.View
             if (cbTermSY.Items.Count > 0)
                 cbTermSY.Items.Clear();
 
-            lTermSY = Db.GetTermSY();
+            lTermSY = Db.GetTermSY(SQL.ConString);
 
             foreach (TermSchoolYear tsy in lTermSY)
             {
@@ -52,7 +42,7 @@ namespace EnrollmentAdmin.View
 
         private void LoadCourseSchedules(int TermID)
         {
-            lCourseSchedule = Db.GetCourseSchedules(TermID);
+            lCourseSchedule = Db.GetCourseSchedules(SQL.ConString, TermID);
             if (lCourseSchedule != null)
                 dgCourseSchedules.ItemsSource = lCourseSchedule;
 
@@ -112,7 +102,7 @@ namespace EnrollmentAdmin.View
         {
             if (dgCourseSchedules.SelectedIndex != -1)
             {
-                Schedule schedule = Db.GetCourseSchedule(SelectedCourse.ID);
+                Schedule schedule = Db.GetCourseSchedule(SQL.ConString, SelectedCourse.ID);
                 CourseScheduleView csView = new CourseScheduleView(statusSelectedCourse.Content.ToString(), schedule);
                 csView.ShowDialog();
                 LoadTermSY();
@@ -128,7 +118,7 @@ namespace EnrollmentAdmin.View
             Globals.COURSE_SCHEDULE row = (Globals.COURSE_SCHEDULE)((Button)e.Source).DataContext;
             
             //Globals.COURSE_SCHEDULE row = (Globals.COURSE_SCHEDULE)dgCourseSchedules.SelectedItem;
-            Schedule schedule = Db.GetCourseSchedule(row.ID);
+            Schedule schedule = Db.GetCourseSchedule(SQL.ConString, row.ID);
             CourseScheduleView csView = new CourseScheduleView(statusSelectedCourse.Content.ToString(), schedule);
             csView.ShowDialog();
             LoadTermSY();
@@ -137,7 +127,7 @@ namespace EnrollmentAdmin.View
         private void btnRemoveCourseSchedule_Click(object sender, RoutedEventArgs e)
         {
             Globals.COURSE_SCHEDULE row = (Globals.COURSE_SCHEDULE)dgCourseSchedules.SelectedItem;
-            Db.DeleteCourseSchedule(row.ID);
+            Db.DeleteCourseSchedule(SQL.ConString, row.ID);
             LoadTermSY();
         }
 

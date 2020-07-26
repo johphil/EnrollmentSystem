@@ -1,0 +1,37 @@
+﻿<Page x:Class="EnrollmentStudent.View.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EnrollmentStudent.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="469" d:DesignWidth="834"
+      Title="My Profile" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Separator HorizontalAlignment="Left" Height="11" Margin="10,41,0,0" VerticalAlignment="Top" Width="804"/>
+        <Label Content="Student ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblStudentID" Content="Label" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="26" Margin="58,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" Style="{DynamicResource tbReadOnly}"/>
+        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="315,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" Style="{DynamicResource tbReadOnly}"/>
+        <TextBox x:Name="tbMiddleName" HorizontalAlignment="Left" Height="26" Margin="573,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" Style="{DynamicResource tbReadOnly}"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Margin="58,84,0,0" VerticalAlignment="Top" Width="251" Style="{DynamicResource labelGeneral2}" Height="24"/>
+        <Label Content="Given Name" HorizontalAlignment="Left" Margin="315,84,0,0" VerticalAlignment="Top" Width="252" Style="{DynamicResource labelGeneral2}" Height="24"/>
+        <Label Content="Middle Name" HorizontalAlignment="Left" Margin="573,84,0,0" VerticalAlignment="Top" Width="251" Style="{DynamicResource labelGeneral2}" Height="24"/>
+        <Label Content="Gender" HorizontalAlignment="Left" Margin="304,113,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Date of Birth" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Home Address" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Contact Number" HorizontalAlignment="Left" Margin="501,113,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <TextBox x:Name="tbDateOfBirth" HorizontalAlignment="Left" Height="26" Margin="98,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Style="{DynamicResource tbReadOnly}"/>
+        <TextBox x:Name="tbGender" HorizontalAlignment="Left" Height="26" Margin="360,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Style="{DynamicResource tbReadOnly}"/>
+        <TextBox x:Name="tbContactNumber" HorizontalAlignment="Left" Height="26" Margin="609,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Style="{DynamicResource tbReadOnly}"/>
+        <TextBox x:Name="tbHomeAddress" HorizontalAlignment="Left" Height="26" Margin="107,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="707" Style="{DynamicResource tbReadOnly}"/>
+        <Separator HorizontalAlignment="Left" Height="11" Margin="10,184,0,0" VerticalAlignment="Top" Width="804"/>
+        <Rectangle Fill="#FFF4F4F5" Margin="10,200,0,10" Stroke="Black" HorizontalAlignment="Left" Width="804"/>
+        <TextBlock Margin="10,200,0,10" TextWrapping="Wrap" Text="Announcement" Padding="5" Width="804" HorizontalAlignment="Left"/>
+    </Grid>
+</Page>

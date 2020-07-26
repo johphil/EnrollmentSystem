@@ -1,17 +1,8 @@
-﻿using EnrollmentAdmin.Model;
-using System;
+﻿using Common;
+using Common.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace EnrollmentAdmin.View
 {
@@ -30,7 +21,7 @@ namespace EnrollmentAdmin.View
 
         private void LoadPrograms()
         {
-            lProgram = Db.GetPrograms();
+            lProgram = Db.GetPrograms(SQL.ConString);
             cbProgram.ItemsSource = lProgram;
         }
 
@@ -38,7 +29,7 @@ namespace EnrollmentAdmin.View
         {
             if (cbProgram.SelectedIndex != -1)
             {
-                dgCourseCurriculum.ItemsSource = Db.GetCourseCurriculum(
+                dgCourseCurriculum.ItemsSource = Db.GetCourseCurriculum(SQL.ConString,
                     ((Program)cbProgram.SelectedItem).ID,
                     cbYearLevel.SelectedIndex + 1,
                     cbTerm.SelectedIndex + 1).DefaultView;

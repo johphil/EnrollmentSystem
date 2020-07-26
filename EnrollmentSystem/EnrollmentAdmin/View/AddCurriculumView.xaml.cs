@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Common;
+using Common.Model;
+using EnrollmentAdmin.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Common;
-using EnrollmentAdmin.Model;
-using EnrollmentAdmin.View;
 
 namespace EnrollmentAdmin
 {
@@ -40,13 +33,13 @@ namespace EnrollmentAdmin
 
         private void LoadPrograms()
         {
-            lProgram = Db.GetPrograms();
+            lProgram = Db.GetPrograms(SQL.ConString);
             cbProgram.ItemsSource = lProgram;
         }
 
         private void LoadStandings()
         {
-            lStanding = Db.GetStandings();
+            lStanding = Db.GetStandings(SQL.ConString);
             cbStanding.ItemsSource = lStanding;
         }
     
@@ -142,7 +135,7 @@ namespace EnrollmentAdmin
                 CourseCoReq = strCourseCoReq
             };
 
-            if (Db.InsertCourseCurriculum(coursecurriculum) > 0)
+            if (Db.InsertCourseCurriculum(SQL.ConString, coursecurriculum) > 0)
             {
                 MessageBox.Show("Insert Success");
                 SelectedCourse = null;

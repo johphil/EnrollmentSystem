@@ -1,0 +1,56 @@
+﻿<Page x:Class="EnrollmentStudent.View.Pages.CurriculumPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EnrollmentStudent.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="469" d:DesignWidth="834"
+      Title="My Curriculum" Background="White">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Program" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblProgram" Content="####" HorizontalAlignment="Left" Margin="74,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
+        <Label Content="Year Level" HorizontalAlignment="Left" Margin="124,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblYearLevel" Content="#" HorizontalAlignment="Left" Margin="196,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
+        <Label Content="Units Required" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblUnitsReq" Content="#" HorizontalAlignment="Left" Margin="462,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
+        <Separator Height="13" Margin="10,41,10,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgCourseCurriculum" Margin="10,59,0,45" ColumnHeaderStyle="{DynamicResource dgColumnHeaderCurriculum}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" VerticalScrollBarVisibility="Hidden" RowHeaderWidth="0" Background="{x:Null}" BorderBrush="Black" HorizontalAlignment="Left" Width="802" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Yr" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding YearLevel}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Term" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Term}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Course Code" Width="80" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseCode}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Course Title" Width="290" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseTitle}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lec Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LectureHrs}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lab Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LabHrs}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Credit Units" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Credit}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Pre-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding PreReq}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Co-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CoReq}" ElementStyle="{DynamicResource txtWrap}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Term" HorizontalAlignment="Right" Margin="0,10,93,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Year Level" HorizontalAlignment="Right" Margin="0,10,211,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <ComboBox x:Name="cbYearLevel" HorizontalAlignment="Right" Margin="0,10,136,0" VerticalAlignment="Top" Width="70" Height="26" SelectedIndex="0" SelectionChanged="cbYearLevel_SelectionChanged" IsEditable="True">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+        </ComboBox>
+        <ComboBox x:Name="cbTerm" HorizontalAlignment="Right" Margin="0,10,11,0" VerticalAlignment="Top" Width="77" Height="26" SelectedIndex="0" SelectionChanged="cbTerm_SelectionChanged" IsEditable="True">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+        </ComboBox>
+        <Label Content="Total" HorizontalAlignment="Left" Margin="170,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="291" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTotalLecHrs" Content="#" HorizontalAlignment="Left" Margin="461,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTotalLabHrs" Content="#" HorizontalAlignment="Left" Margin="500,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTotalCredit" Content="#" HorizontalAlignment="Left" Margin="540,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</Page>

@@ -1,0 +1,14 @@
+﻿<Page x:Class="EnrollmentStudent.View.Pages.InvalidPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EnrollmentStudent.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="469" d:DesignWidth="834"
+      Title="Invalid Page">
+
+    <Grid Background="White">
+        <Label Content="Page Not Found" Margin="0,171,0,0" VerticalAlignment="Top" Height="100" Background="#FFBF0202" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24" FontFamily="Candara"/>
+    </Grid>
+</Page>

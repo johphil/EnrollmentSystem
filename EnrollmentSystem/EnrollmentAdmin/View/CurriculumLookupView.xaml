@@ -9,7 +9,7 @@
     <Grid>
         <Label Content="Program" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
         <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="74,10,0,0" VerticalAlignment="Top" Width="120" Height="26" DisplayMemberPath="Code" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True"/>
-        <DataGrid x:Name="dgCourseCurriculum" HorizontalAlignment="Left" Height="368" Margin="10,41,0,0" VerticalAlignment="Top" Width="812" ColumnHeaderStyle="{DynamicResource dgColumnHeaderCurriculum}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" VerticalScrollBarVisibility="Hidden" RowHeaderWidth="0">
+        <DataGrid x:Name="dgCourseCurriculum" HorizontalAlignment="Left" Height="368" Margin="10,41,0,0" VerticalAlignment="Top" Width="812" ColumnHeaderStyle="{DynamicResource dgColumnHeaderCurriculum}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" VerticalScrollBarVisibility="Hidden" RowHeaderWidth="0" Background="{x:Null}" BorderBrush="{x:Null}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Yr" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding YearLevel}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Term" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Term}" ElementStyle="{DynamicResource txtWrap}"/>

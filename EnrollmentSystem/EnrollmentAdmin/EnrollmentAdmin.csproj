@@ -56,18 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddCourse.xaml.cs">
-      <DependentUpon>AddCourse.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Course.cs" />
-    <Compile Include="Model\Curriculum.cs" />
-    <Compile Include="Model\Program.cs" />
-    <Compile Include="Model\Schedule.cs" />
-    <Compile Include="Model\Section.cs" />
-    <Compile Include="Model\Standing.cs" />
-    <Compile Include="Model\TermSchoolYear.cs" />
-    <Compile Include="Model\TimeSlotBase.cs" />
-    <Compile Include="Db.cs" />
+    <Compile Include="SQL.cs" />
     <Compile Include="View\AddCurriculumView.xaml.cs">
       <DependentUpon>AddCurriculumView.xaml</DependentUpon>
     </Compile>
@@ -86,10 +75,6 @@
     <Compile Include="View\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddCourse.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\AddCurriculumView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

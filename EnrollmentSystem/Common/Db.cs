@@ -7,18 +7,14 @@ using System.Configuration;
 using System.Security.Cryptography;
 using System.Data.SqlClient;
 using System.Data;
-using EnrollmentAdmin.Model;
 using System.Collections.ObjectModel;
 using System.Windows;
-using Common;
+using Common.Model;
 
-namespace EnrollmentAdmin
+namespace Common
 {
     public static class Db
     {
-        //SQL CONNECTION
-        public static string CON_ENROLLMENTDB = ConfigurationManager.ConnectionStrings["EnrollmentDB"]?.ConnectionString;
-
         //DBUTILS
         public static object ToDbParameter<T>(this T? value) where T : struct
         {
@@ -39,8 +35,94 @@ namespace EnrollmentAdmin
             return dbValue;
         }
 
+        //LOGIN 
+        public static PersonInfo Login(string CON_ENROLLMENTDB, string Account, string Password, int Auth)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spLogin", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@account", SqlDbType.VarChar, 16).Value = Account;
+                        command.Parameters.Add("@password", SqlDbType.VarChar, 32).Value = Globals.MD5Hash(Password);
+                        command.Parameters.Add("@member", SqlDbType.Int).Value = Auth;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new PersonInfo
+                                {
+                                    ID = reader.GetInt32(0),
+                                    Account = reader.GetString(1),
+                                    LastName = reader.GetString(2),
+                                    FirstName = reader.GetString(3),
+                                    MiddleName = reader.GetString(4),
+                                    Gender = reader.GetString(5),
+                                    DateOfBirth = reader.GetDateTime(6),
+                                    HomeAddress = reader[7].ToString(),
+                                    ContactNumber = reader[8].ToString()
+                                };
+                            }
+                            else
+                                return null;
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET STUDENT INFO
+        public static Student GetStudentInfo(string CON_ENROLLMENTDB, PersonInfo uStudent)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetStudent", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@accountid", SqlDbType.Int).Value = uStudent.ID;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new Student
+                                {
+                                    StudentID = reader.GetInt32(0),
+                                    StudentProgram = new Program
+                                    {
+                                        ID = reader.GetInt32(1),
+                                        Code = reader.GetString(2),
+                                        Description = reader.GetString(3),
+                                        Units = float.Parse(reader["UnitsReq"].ToString())
+                                    },
+                                    Standing = reader.GetString(4),
+                                    StudentInfo = uStudent
+                                };
+                            }
+                            else
+                                return null;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
         //GET COURSES
-        public static ObservableCollection<Course> GetCourses()
+        public static ObservableCollection<Course> GetCourses(string CON_ENROLLMENTDB)
         {
             try
             {
@@ -78,7 +160,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET COURSE 
-        public static Course GetCourse(int CourseID)
+        public static Course GetCourse(string CON_ENROLLMENTDB, int CourseID)
         {
             try
             {
@@ -117,7 +199,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET SECTIONS
-        public static List<Section> GetSections()
+        public static List<Section> GetSections(string CON_ENROLLMENTDB)
         {
             try
             {
@@ -151,7 +233,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET TERM AND SCHOOLYEAR
-        public static List<TermSchoolYear> GetTermSY()
+        public static List<TermSchoolYear> GetTermSY(string CON_ENROLLMENTDB)
         {
             try
             {
@@ -188,7 +270,7 @@ namespace EnrollmentAdmin
             }
         }
         //INSERT COURSE SCHEDULE
-        public static int InsertCourseSchedule(Schedule CourseSchedule)
+        public static int InsertCourseSchedule(string CON_ENROLLMENTDB, Schedule CourseSchedule)
         {
             try
             {
@@ -214,7 +296,7 @@ namespace EnrollmentAdmin
             }
         }
         //UPDATE COURSE SCHEDULE
-        public static int UpdateCourseSchedule(Schedule CourseSchedule)
+        public static int UpdateCourseSchedule(string CON_ENROLLMENTDB, Schedule CourseSchedule)
         {
             try
             {
@@ -241,7 +323,7 @@ namespace EnrollmentAdmin
             }
         }
         //DELETE COURSE SCHEDULE
-        public static int DeleteCourseSchedule(int CourseScheduleID)
+        public static int DeleteCourseSchedule(string CON_ENROLLMENTDB, int CourseScheduleID)
         {
             try
             {
@@ -264,7 +346,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET COURSE SCHEDULES
-        public static List<Globals.COURSE_SCHEDULE> GetCourseSchedules(int TermID)
+        public static List<Globals.COURSE_SCHEDULE> GetCourseSchedules(string CON_ENROLLMENTDB, int TermID)
         {
             try
             {
@@ -301,7 +383,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET COURSE SCHEDULE
-        public static Schedule GetCourseSchedule(int ScheduleID)
+        public static Schedule GetCourseSchedule(string CON_ENROLLMENTDB, int ScheduleID)
         {
             try
             {
@@ -339,7 +421,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET PROGRAMS
-        public static List<Program> GetPrograms()
+        public static List<Program> GetPrograms(string CON_ENROLLMENTDB)
         {
             try
             {
@@ -374,7 +456,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET PROGRAMS
-        public static List<Standing> GetStandings()
+        public static List<Standing> GetStandings(string CON_ENROLLMENTDB)
         {
             try
             {
@@ -408,7 +490,7 @@ namespace EnrollmentAdmin
             }
         }
         //INSERT COURSE CURRICULUM
-        public static int InsertCourseCurriculum(Curriculum curriculum)
+        public static int InsertCourseCurriculum(string CON_ENROLLMENTDB, Curriculum curriculum)
         {
             try
             {
@@ -438,7 +520,7 @@ namespace EnrollmentAdmin
             }
         }
         //GET COURSE CURRICULUM 
-        public static DataTable GetCourseCurriculum(int ProgramID, int YearLevel, int Term)
+        public static DataTable GetCourseCurriculum(string CON_ENROLLMENTDB, int ProgramID, int YearLevel, int Term)
         {
             try
             {

@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Common;
+using Common.Model;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using EnrollmentAdmin.Model;
 
 namespace EnrollmentAdmin.View
 {
@@ -28,7 +19,7 @@ namespace EnrollmentAdmin.View
         public CourseLookupView()
         {
             InitializeComponent();
-            _Courses = Db.GetCourses();
+            _Courses = Db.GetCourses(SQL.ConString);
             dgCourse.ItemsSource = _Courses;
             tbSearch.Focus();
         }

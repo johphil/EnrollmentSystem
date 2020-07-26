@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnrollmentAdmin.Model
+namespace Common.Model
 {
-    public class Section
+    public class Standing
     {
         public int ID { get; set; }
-        public string Code { get; set; }
+        public string YearStanding { get; set; }
     }
 }

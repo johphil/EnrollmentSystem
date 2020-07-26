@@ -1,20 +1,12 @@
-﻿using System;
+﻿using Common;
+using Common.Model;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using EnrollmentAdmin.Model;
-using Common;
 
 namespace EnrollmentAdmin.View
 {
@@ -28,7 +20,7 @@ namespace EnrollmentAdmin.View
         private static Schedule CourseSchedule = new Schedule();
 
         private static List<TermSchoolYear> lTermSY;
-        private static List<Model.Section> lSection;
+        private static List<Common.Model.Section> lSection;
         private List<Globals.COURSE_TIMESLOT> mapTimeSlot = new List<Globals.COURSE_TIMESLOT>();
 
         private bool isEdit = false;
@@ -52,7 +44,7 @@ namespace EnrollmentAdmin.View
             CourseSchedule = schedule;
 
             //Load Course
-            SelectedCourse = Db.GetCourse(schedule.CourseID);
+            SelectedCourse = Db.GetCourse(SQL.ConString, schedule.CourseID);
             
             if (SelectedCourse != null)
                 tbCourse.Text = SelectedCourse.Code;
@@ -109,7 +101,7 @@ namespace EnrollmentAdmin.View
             //if (cbSection.Items.Count > 0)
             //    cbSection.Items.Clear();
 
-            lSection = Db.GetSections();
+            lSection = Db.GetSections(SQL.ConString);
 
             cbSection.ItemsSource = lSection;
 
@@ -132,7 +124,7 @@ namespace EnrollmentAdmin.View
             //if (cbTermSY.Items.Count > 0)
             //    cbTermSY.Items.Clear();
 
-            lTermSY = Db.GetTermSY();
+            lTermSY = Db.GetTermSY(SQL.ConString);
 
             cbTermSY.ItemsSource = lTermSY;
 
@@ -293,7 +285,7 @@ namespace EnrollmentAdmin.View
         {
             if (isEdit)
             {
-                if (Db.UpdateCourseSchedule(CourseSchedule) > 0)
+                if (Db.UpdateCourseSchedule(SQL.ConString, CourseSchedule) > 0)
                 {
                     MessageBox.Show("Update Success");
                     this.Close();
@@ -301,7 +293,7 @@ namespace EnrollmentAdmin.View
             }
             else
             {
-                if (Db.InsertCourseSchedule(CourseSchedule) > 0)
+                if (Db.InsertCourseSchedule(SQL.ConString, CourseSchedule) > 0)
                 {
                     MessageBox.Show("Save Success");
                     this.Close();
@@ -316,7 +308,7 @@ namespace EnrollmentAdmin.View
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (Db.DeleteCourseSchedule(CourseSchedule.ID) > 0)
+            if (Db.DeleteCourseSchedule(SQL.ConString, CourseSchedule.ID) > 0)
             {
                 MessageBox.Show("Remove Success");
                 this.Close();
@@ -327,7 +319,7 @@ namespace EnrollmentAdmin.View
         {
             if (isEdit)
             {
-                if (Db.UpdateCourseSchedule(CourseSchedule) > 0)
+                if (Db.UpdateCourseSchedule(SQL.ConString, CourseSchedule) > 0)
                 {
                     MessageBox.Show("Update Success");
                     this.Close();
@@ -335,7 +327,7 @@ namespace EnrollmentAdmin.View
             }
             else
             {
-                if (Db.InsertCourseSchedule(CourseSchedule) > 0)
+                if (Db.InsertCourseSchedule(SQL.ConString, CourseSchedule) > 0)
                 {
                     MessageBox.Show("Save Success");
                     this.Close();

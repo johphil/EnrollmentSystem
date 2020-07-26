@@ -15,7 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EnrollmentStudent;
-using EnrollmentStudent.Model;
+using Common;
+using EnrollmentStudent.View;
+using Common.Model;
 
 namespace EnrollmentStudent
 {
@@ -31,56 +33,24 @@ namespace EnrollmentStudent
         }
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            User user = Login(TbAccount.Text, TbPassword.Password);
+            PersonInfo user = Db.Login(SQL.ConString, TbAccount.Text, TbPassword.Password, Globals.AUTH_STUDENT);
             if (user != null)
             {
-                MessageBox.Show($"SUCCESS {user.LastName}");
+                MessageBox.Show($"Welcome, { user.LastName }");
+
+                Student s = Db.GetStudentInfo(SQL.ConString, user);
+                if (s != null)
+                {
+                    DashboardView dView = new DashboardView(s);
+                    dView.Show();
+                }
+
+
+                this.Close();
             }
             else
             {
-                MessageBox.Show("FAILED");
-            }
-        }
-
-        private User Login(string Account, string Password)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(Db.CON_ACCOUNTDB))
-                {
-                    using (SqlCommand command = new SqlCommand("spLoginAccount", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("@account", SqlDbType.VarChar, 16).Value = Account;
-                        command.Parameters.Add("@password", SqlDbType.VarChar, 64).Value = Password;
-                        command.Parameters.Add("@member", SqlDbType.Int).Value = Db.AUTH_STUDENT;
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                return new User
-                                {
-                                    ID = reader.GetString(0),
-                                    LastName = reader.GetString(1),
-                                    FirstName = reader.GetString(2),
-                                    MiddleName = reader.GetString(3),
-                                    Gender = reader.GetString(4),
-                                    DateOfBirth = reader.GetDateTime(5),
-                                    HomeAddress = reader[6].ToString(),
-                                    ContactAddress = reader[7].ToString()
-                                };
-                            }
-                            else
-                                return null;
-                        }
-                    }
-                }
-            }
-            catch (SqlException e)
-            {
-                return null;
+                MessageBox.Show("Invalid Username/Password!");
             }
         }
     }

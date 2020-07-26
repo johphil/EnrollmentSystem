@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnrollmentStudent"
         mc:Ignorable="d"
-        Title="Student Portal" Height="185.625" Width="244.062" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Login" Height="146.125" Width="228.062" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <WrapPanel Height="135" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="216">
+        <WrapPanel Height="97" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="202">
             <Label Content="Account" Width="70"/>
             <TextBox x:Name="TbAccount" Height="22" TextWrapping="Wrap" Width="120" TabIndex="0"/>
             <Label Content="Password" Width="70"/>

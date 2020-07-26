@@ -14,11 +14,30 @@ using Common;
 
 namespace EnrollmentAdmin
 {
-    public class Db
+    public static class Db
     {
         //SQL CONNECTION
-        public static string CON_ACCOUNTDB = ConfigurationManager.ConnectionStrings["AccountDB"]?.ConnectionString;
         public static string CON_ENROLLMENTDB = ConfigurationManager.ConnectionStrings["EnrollmentDB"]?.ConnectionString;
+
+        //DBUTILS
+        public static object ToDbParameter<T>(this T? value) where T : struct
+        {
+            object dbValue = value;
+            if (dbValue == null)
+            {
+                dbValue = DBNull.Value;
+            }
+            return dbValue;
+        }
+        public static object ToDbParameter(this object value)
+        {
+            object dbValue = value;
+            if (dbValue == null)
+            {
+                dbValue = DBNull.Value;
+            }
+            return dbValue;
+        }
 
         //GET COURSES
         public static ObservableCollection<Course> GetCourses()
@@ -39,7 +58,7 @@ namespace EnrollmentAdmin
                             {
                                 collection.Add(new Course()
                                 {
-                                    ID = Int32.Parse(reader["ID"].ToString()),
+                                    ID = reader.GetInt32(0),
                                     Code = reader["Code"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Credit = float.Parse(reader["Credit"].ToString()),
@@ -77,7 +96,7 @@ namespace EnrollmentAdmin
                             {
                                 return new Course()
                                 {
-                                    ID = Int32.Parse(reader["ID"].ToString()),
+                                    ID = reader.GetInt32(0),
                                     Code = reader["Code"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Credit = float.Parse(reader["Credit"].ToString()),
@@ -116,8 +135,8 @@ namespace EnrollmentAdmin
                             {
                                 collection.Add(new Section()
                                 {
-                                    ID = Int32.Parse(reader["ID"].ToString()),
-                                    Code = reader["Code"].ToString()
+                                    ID = reader.GetInt32(0),
+                                    Code = reader.GetString(1)
                                 });
                             }
                         }
@@ -312,6 +331,136 @@ namespace EnrollmentAdmin
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET PROGRAMS
+        public static List<Program> GetPrograms()
+        {
+            try
+            {
+                List<Program> collection = new List<Program>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetPrograms", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(new Program()
+                                {
+                                    ID = reader.GetInt32(0),
+                                    Code = reader.GetString(1),
+                                    Description = reader.GetString(2)
+                                });
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET PROGRAMS
+        public static List<Standing> GetStandings()
+        {
+            try
+            {
+                List<Standing> collection = new List<Standing>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetStandings", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(new Standing()
+                                {
+                                    ID = reader.GetInt32(0),
+                                    YearStanding = reader.GetString(1),
+                                });
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //INSERT COURSE CURRICULUM
+        public static int InsertCourseCurriculum(Curriculum curriculum)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spInsertCourseCurriculum", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("programid", SqlDbType.Int).Value = curriculum.ProgramID;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = curriculum.CourseID;
+                        command.Parameters.Add("yearlevel", SqlDbType.Int).Value = curriculum.YearLevel;
+                        command.Parameters.Add("term", SqlDbType.Int).Value = curriculum.Term;
+                        command.Parameters.Add("standing", SqlDbType.Int).Value = curriculum.YearStanding.ToDbParameter();
+                        command.Parameters.Add("prereq", SqlDbType.VarChar).Value = curriculum.CoursePreReq;
+                        command.Parameters.Add("coreq", SqlDbType.VarChar).Value = curriculum.CourseCoReq;
+
+
+                        connection.Open();
+                        return command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+        }
+        //GET COURSE CURRICULUM 
+        public static DataTable GetCourseCurriculum(int ProgramID, int YearLevel, int Term)
+        {
+            try
+            {
+                DataTable table = new DataTable("CourseCurriculum");
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCourseCurriculum", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("programid", SqlDbType.Int).Value = ProgramID;
+                        command.Parameters.Add("yearlevel", SqlDbType.Int).Value = YearLevel;
+                        command.Parameters.Add("term", SqlDbType.Int).Value = Term;
+
+                        connection.Open();
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(table);
+                        }
+                    }
+                }
+                return table;
             }
             catch (Exception e)
             {

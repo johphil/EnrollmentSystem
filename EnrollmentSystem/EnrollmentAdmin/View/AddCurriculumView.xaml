@@ -5,34 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnrollmentAdmin"
         mc:Ignorable="d"
-        Title="Curriculum" Height="626" Width="549" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Curriculum" Height="676" Width="549" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Program" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="66"/>
-        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="120" Height="26" IsEditable="True"/>
-        <Label Content="Batch" HorizontalAlignment="Left" Margin="356,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-        <ComboBox x:Name="cbBatch" HorizontalAlignment="Left" Margin="403,10,0,0" VerticalAlignment="Top" Width="120" Height="26" IsEditable="True"/>
+        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="120" Height="26" IsEditable="True" DisplayMemberPath="Code" SelectionChanged="cbProgram_SelectionChanged"/>
         <Separator HorizontalAlignment="Left" Height="19" Margin="10,41,0,0" VerticalAlignment="Top" Width="513"/>
         <Label Content="Course" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="66"/>
-        <ComboBox x:Name="cbCourse" HorizontalAlignment="Left" Margin="81,65,0,0" VerticalAlignment="Top" Width="120" Height="26" IsEditable="True"/>
         <Label Content="Year Level" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-        <ComboBox x:Name="cbYearLevel" HorizontalAlignment="Left" Margin="81,96,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <ComboBox x:Name="cbYearLevel" HorizontalAlignment="Left" Margin="81,96,0,0" VerticalAlignment="Top" Width="120" Height="26">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+        </ComboBox>
         <Label Content="Term" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="66"/>
-        <ComboBox x:Name="cbTerm" HorizontalAlignment="Left" Margin="81,127,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <ComboBox x:Name="cbTerm" HorizontalAlignment="Left" Margin="81,127,0,0" VerticalAlignment="Top" Width="120" Height="26">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+        </ComboBox>
         <Label Content="Pre-requisite" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
         <Separator HorizontalAlignment="Left" Height="19" Margin="10,158,0,0" VerticalAlignment="Top" Width="513"/>
-        <DataGrid x:Name="dgPreReq" HorizontalAlignment="Left" Height="100" Margin="10,213,0,0" VerticalAlignment="Top" Width="513"/>
-        <Button x:Name="btnAddPreReq" Content="Add" HorizontalAlignment="Left" Margin="448,188,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Co-requisite" HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-        <DataGrid x:Name="dgCoReq" HorizontalAlignment="Left" Height="100" Margin="10,385,0,0" VerticalAlignment="Top" Width="513"/>
-        <Button x:Name="btnAddCoReq" Content="Add" HorizontalAlignment="Left" Margin="448,360,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="448,515,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnSave}"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="368,515,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnCancel}"/>
+        <DataGrid x:Name="dgPreReq" HorizontalAlignment="Left" Height="156" Margin="10,213,0,0" VerticalAlignment="Top" Width="513" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code" Width="110" Binding="{Binding Code}" CellStyle="{DynamicResource dgCellAlignCenter}"/>
+                <DataGridTextColumn Header="Description" Width="300" Binding="{Binding Description}" CellStyle="{DynamicResource dgCellAlignLeft}"/>
+                <DataGridTextColumn Header="Units" Width="50" Binding="{Binding Credit}" CellStyle="{DynamicResource dgCellAlignCenter}"/>
+                <DataGridTemplateColumn Header="" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btnRemoveCoursePreReq" Content="X" Click="btnRemoveCoursePreReq_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnAddPreReq" Content="Add" HorizontalAlignment="Left" Margin="448,188,0,0" VerticalAlignment="Top" Width="75" Click="btnAddPreReq_Click"/>
+        <Label Content="Co-requisite" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <DataGrid x:Name="dgCoReq" HorizontalAlignment="Left" Height="156" Margin="10,405,0,0" VerticalAlignment="Top" Width="513" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code" Width="110" Binding="{Binding Code}"/>
+                <DataGridTextColumn Header="Description" Width="300" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Units" Width="50" Binding="{Binding Credit}"/>
+                <DataGridTemplateColumn Header="" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btnRemoveCourseCoReq" Content="X" Click="btnRemoveCourseCoReq_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnAddCoReq" Content="Add" HorizontalAlignment="Left" Margin="448,380,0,0" VerticalAlignment="Top" Width="75" Click="btnAddCoReq_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="448,566,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnSave}" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="368,566,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource btnCancel}" Click="btnCancel_Click"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="88" Margin="206,65,0,0" VerticalAlignment="Top" Width="317">
             <Grid>
-                <Label x:Name="lblCourseDescription" Content="Course Description" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue}" Width="295" HorizontalContentAlignment="Center"/>
-                <Label x:Name="lblCourseUnits" Content="Units" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue}" Width="295" HorizontalContentAlignment="Center"/>
-
+                <Label x:Name="lblCourseDescription" Content="" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue}" Width="295" HorizontalContentAlignment="Center"/>
+                <Label x:Name="lblCourseUnits" Content="" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue}" Width="295" HorizontalContentAlignment="Center"/>
             </Grid>
         </Border>
+        <TextBox x:Name="tbCourse" HorizontalAlignment="Left" Height="26" Margin="81,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Style="{DynamicResource tbInputText}" IsReadOnly="True" HorizontalContentAlignment="Center" CharacterCasing="Upper" Cursor="Hand" PreviewMouseDown="tbCourse_PreviewMouseDown"/>
+        <Label x:Name="lblProgram" Content="" HorizontalAlignment="Left" Margin="206,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue}" Width="317" HorizontalContentAlignment="Center"/>
+        <Label Content="Standing" HorizontalAlignment="Left" Margin="10,566,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="66"/>
+        <ComboBox x:Name="cbStanding" HorizontalAlignment="Left" Margin="81,566,0,0" VerticalAlignment="Top" Width="120" Height="26" DisplayMemberPath="YearStanding"/>
     </Grid>
 </Window>

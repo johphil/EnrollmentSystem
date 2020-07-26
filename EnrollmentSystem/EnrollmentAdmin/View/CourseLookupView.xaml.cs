@@ -30,6 +30,7 @@ namespace EnrollmentAdmin.View
             InitializeComponent();
             _Courses = Db.GetCourses();
             dgCourse.ItemsSource = _Courses;
+            tbSearch.Focus();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

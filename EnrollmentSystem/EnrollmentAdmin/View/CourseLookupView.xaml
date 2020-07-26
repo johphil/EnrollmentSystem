@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnrollmentAdmin.View"
         mc:Ignorable="d"
-        Title="Course Lookup" Height="432" Width="658.996">
+        Title="Course Lookup" Height="432" Width="658.996" WindowStartupLocation="CenterOwner">
     <Grid>
         <Label Content="Search Source Code" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" HorizontalAlignment="Left" Width="121"/>
         <TextBox x:Name="tbSearch" Height="26" Margin="136,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource tbInputText}" TextChanged="tbSearch_TextChanged"/>
         <DataGrid x:Name="dgCourse" Margin="10,41,10,81" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" RowHeaderWidth="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="Code" Binding="{Binding Code}" CellStyle="{StaticResource dgCellAlignCenter}"/>
-                <DataGridTextColumn Width="350" Header="Description" Binding="{Binding Description}" CellStyle="{StaticResource dgCellAlignLeft}"/>
+                <DataGridTextColumn Width="100" Header="Course Code" Binding="{Binding Code}" CellStyle="{StaticResource dgCellAlignCenter}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Width="350" Header="Description" Binding="{Binding Description}" CellStyle="{StaticResource dgCellAlignLeft}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Width="50" Header="Credit" Binding="{Binding Credit}" CellStyle="{StaticResource dgCellAlignCenter}"/>
                 <DataGridTextColumn Width="60" Header="Lec. Hrs." Binding="{Binding LectureHours}" CellStyle="{StaticResource dgCellAlignCenter}"/>
                 <DataGridTextColumn Width="60" Header="Lab. Hrs." Binding="{Binding LabHours}" CellStyle="{StaticResource dgCellAlignCenter}"/>

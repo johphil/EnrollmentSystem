@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountRegistration"
         mc:Ignorable="d"
-        Title="Registration" Height="519.719" Width="302.012">
+        Title="Registration" Height="551.86" Width="302.012">
     <Grid>
         <Label Content="Account" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
@@ -17,26 +17,28 @@
             <ComboBoxItem Content="Registrar"/>
             <ComboBoxItem Content="Student"/>
         </ComboBox>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="103,436,0,0" VerticalAlignment="Top" Width="167" Height="33" IsTabStop="False" IsDefault="True" Click="Button_Click"/>
-        <Label Content="Last Name" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="23" Margin="103,162,0,0" VerticalAlignment="Top" Width="167" TabIndex="3"/>
-        <Separator HorizontalAlignment="Left" Height="14" Margin="10,103,0,0" VerticalAlignment="Top" Width="260"/>
-        <Label Content="First Name" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="23" Margin="103,190,0,0" VerticalAlignment="Top" Width="167" TabIndex="4"/>
-        <Label Content="Middle Name" HorizontalAlignment="Left" Margin="10,214,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbMiddleName" HorizontalAlignment="Left" Height="23" Margin="103,218,0,0" VerticalAlignment="Top" Width="167" TabIndex="5"/>
-        <Label Content="Gender" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbGender" HorizontalAlignment="Left" Margin="103,249,0,0" VerticalAlignment="Top" Width="167" SelectedIndex="0" TabIndex="6">
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="103,466,0,0" VerticalAlignment="Top" Width="167" Height="33" IsTabStop="False" IsDefault="True" Click="Button_Click"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="23" Margin="103,192,0,0" VerticalAlignment="Top" Width="167" TabIndex="3"/>
+        <Separator HorizontalAlignment="Left" Height="14" Margin="10,133,0,0" VerticalAlignment="Top" Width="260"/>
+        <Label Content="First Name" HorizontalAlignment="Left" Margin="10,216,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="23" Margin="103,220,0,0" VerticalAlignment="Top" Width="167" TabIndex="4"/>
+        <Label Content="Middle Name" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbMiddleName" HorizontalAlignment="Left" Height="23" Margin="103,248,0,0" VerticalAlignment="Top" Width="167" TabIndex="5"/>
+        <Label Content="Gender" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbGender" HorizontalAlignment="Left" Margin="103,279,0,0" VerticalAlignment="Top" Width="167" SelectedIndex="0" TabIndex="6">
             <ComboBoxItem Content="Male"/>
             <ComboBoxItem Content="Female"/>
         </ComboBox>
-        <Label Content="Birthday" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpBirthday" HorizontalAlignment="Left" Margin="103,276,0,0" VerticalAlignment="Top" Width="167" TabIndex="7" IsTabStop="True"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbAddress" HorizontalAlignment="Left" Height="90" Margin="103,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" TabIndex="8"/>
-        <Label Content="Contact No." HorizontalAlignment="Left" Margin="10,398,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbContact" HorizontalAlignment="Left" Height="23" Margin="103,400,0,0" VerticalAlignment="Top" Width="167" TabIndex="9"/>
-        <Label Content="Personal Information" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Birthday" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpBirthday" HorizontalAlignment="Left" Margin="103,306,0,0" VerticalAlignment="Top" Width="167" TabIndex="7" IsTabStop="True"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="10,333,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbAddress" HorizontalAlignment="Left" Height="90" Margin="103,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" TabIndex="8"/>
+        <Label Content="Contact No." HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbContact" HorizontalAlignment="Left" Height="23" Margin="103,430,0,0" VerticalAlignment="Top" Width="167" TabIndex="9"/>
+        <Label Content="Personal Information" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Program(Stdnt)" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="103,105,0,0" VerticalAlignment="Top" Width="167" TabIndex="2" DisplayMemberPath="Code"/>
 
     </Grid>
 </Window>

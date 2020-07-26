@@ -1,0 +1,42 @@
+﻿<Window x:Class="EnrollmentAdmin.View.CurriculumLookupView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnrollmentAdmin.View"
+        mc:Ignorable="d"
+        Title="Curriculum Lookup" Height="460" Width="852" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Program" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="74,10,0,0" VerticalAlignment="Top" Width="120" Height="26" DisplayMemberPath="Code" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True"/>
+        <DataGrid x:Name="dgCourseCurriculum" HorizontalAlignment="Left" Height="368" Margin="10,41,0,0" VerticalAlignment="Top" Width="812" ColumnHeaderStyle="{DynamicResource dgColumnHeaderCurriculum}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" VerticalScrollBarVisibility="Hidden" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Yr" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding YearLevel}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Term" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Term}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Course Code" Width="80" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseCode}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Course Title" Width="300" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseTitle}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lec Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LectureHrs}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lab Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LabHrs}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Credit Units" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Credit}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Pre-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding PreReq}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Co-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CoReq}" ElementStyle="{DynamicResource txtWrap}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Term" HorizontalAlignment="Left" Margin="702,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Year Level" HorizontalAlignment="Left" Margin="556,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <ComboBox x:Name="cbYearLevel" HorizontalAlignment="Left" Margin="627,10,0,0" VerticalAlignment="Top" Width="70" Height="26" SelectedIndex="0" SelectionChanged="cbYearLevel_SelectionChanged" IsEditable="True">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+        </ComboBox>
+        <ComboBox x:Name="cbTerm" HorizontalAlignment="Left" Margin="745,10,0,0" VerticalAlignment="Top" Width="77" Height="26" SelectedIndex="0" SelectionChanged="cbTerm_SelectionChanged" IsEditable="True">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+        </ComboBox>
+
+    </Grid>
+</Window>

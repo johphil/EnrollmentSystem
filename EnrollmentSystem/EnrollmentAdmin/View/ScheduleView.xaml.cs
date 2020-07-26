@@ -158,5 +158,17 @@ namespace EnrollmentAdmin.View
             AddCurriculumView acView = new AddCurriculumView();
             acView.ShowDialog();
         }
+
+        private void menuCourseView_Click(object sender, RoutedEventArgs e)
+        {
+            CourseLookupView clView = new CourseLookupView();
+            clView.ShowDialog();
+        }
+
+        private void menuCurriculumVIew_Click(object sender, RoutedEventArgs e)
+        {
+            CurriculumLookupView clView = new CurriculumLookupView();
+            clView.ShowDialog();
+        }
     }
 }

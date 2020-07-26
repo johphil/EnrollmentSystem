@@ -75,6 +75,11 @@
                     <MenuItem x:Name="menuNewCurriculum" Header="Add Course Curriculum" Click="menuNewCurriculum_Click"/>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem x:Name="menuCourseView" Header="Courses" Click="menuCourseView_Click"/>
+                <Separator/>
+                <MenuItem x:Name="menuCurriculumVIew" Header="Curriculum" Click="menuCurriculumVIew_Click"/>
+            </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Course Schedules" VerticalAlignment="Top" Style="{StaticResource txtTitle}"/>
         <Label Content="Term &amp; SY" HorizontalAlignment="Right" Margin="0,30,146,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>

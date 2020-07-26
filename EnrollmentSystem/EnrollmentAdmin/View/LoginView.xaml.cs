@@ -33,7 +33,7 @@ namespace EnrollmentAdmin
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            User user = Globals.Login(TbAccount.Text, TbPassword.Password, Db.CON_ACCOUNTDB);
+            User user = Globals.Login(TbAccount.Text, TbPassword.Password, Db.CON_ENROLLMENTDB);
             if (user != null)
             {
                 MessageBox.Show($"Welcome, { user.LastName }");

@@ -24,9 +24,17 @@ namespace AccountRegistration
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static string CON_ENROLLMENTDB = ConfigurationManager.ConnectionStrings["EnrollmentDB"]?.ConnectionString;
         public MainWindow()
         {
             InitializeComponent();
+            cbProgram.ItemsSource = GetPrograms();
+        }
+
+        public struct PROGRAM
+        {
+            public int ID { get; set; }
+            public string Code { get; set; }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -72,8 +80,7 @@ namespace AccountRegistration
                 }
                 else
                 {
-                    string CON_ACCOUNTDB = ConfigurationManager.ConnectionStrings["AccountDB"]?.ConnectionString;
-                    using (SqlConnection connection = new SqlConnection(CON_ACCOUNTDB))
+                    using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
                     {
                         using (SqlCommand command = new SqlCommand("spRegister", connection))
                         {
@@ -89,6 +96,11 @@ namespace AccountRegistration
                             command.Parameters.AddWithValue("@address", address);
                             command.Parameters.AddWithValue("@contact", contact);
 
+                            if (cbProgram.SelectedIndex == -1)
+                                command.Parameters.AddWithValue("@programid", DBNull.Value);
+                            else
+                                command.Parameters.AddWithValue("@programid", ((PROGRAM)cbProgram.SelectedItem).ID);
+
                             connection.Open();
                             return command.ExecuteNonQuery();
                         }
@@ -99,6 +111,40 @@ namespace AccountRegistration
             {
                 MessageBox.Show(e.Message);
                 return -1;
+            }
+        }
+
+        public static List<PROGRAM> GetPrograms()
+        {
+            try
+            {
+                List<PROGRAM> collection = new List<PROGRAM>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetPrograms", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(new PROGRAM()
+                                {
+                                    ID = reader.GetInt32(0),
+                                    Code = reader.GetString(1)
+                                });
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
             }
         }
     }

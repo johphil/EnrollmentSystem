@@ -32,7 +32,7 @@ namespace EnrollmentStudent.View.Pages
 
         private void LoadInfo()
         {
-            lblStudentID.Content = myStudent.StudentID.ToString();
+            lblStudentNumber.Content = myStudent.StudentNumber;
             tbLastName.Text = myStudent.StudentInfo.LastName;
             tbFirstName.Text = myStudent.StudentInfo.FirstName;
             tbMiddleName.Text = myStudent.StudentInfo.MiddleName;

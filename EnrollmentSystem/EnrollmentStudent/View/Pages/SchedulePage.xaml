@@ -1,0 +1,170 @@
+﻿<Page x:Class="EnrollmentStudent.View.Pages.SchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EnrollmentStudent.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="469" d:DesignWidth="834"
+      Title="Schedule" Background="White">
+
+    <Grid>
+        <DataGrid x:Name="dgTimeSlot" Margin="10,41,10,10" IsReadOnly="True" ColumnWidth="*" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowHeaderWidth="0" MinRowHeight="40" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserReorderColumns="False" RowHeight="40" Height="386">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="" Binding="{Binding TimeSlot}" CellStyle="{DynamicResource dgCellDisableSelect}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                            <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Monday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Monday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Monday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Monday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Monday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Tuesday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Tuesday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Tuesday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Tuesday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Tuesday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Wednesday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Wednesday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Wednesday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Wednesday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Wednesday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Thursday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Thursday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Thursday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Thursday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Thursday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Friday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Friday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Friday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Friday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Friday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Saturday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Saturday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Saturday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Saturday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Saturday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Sunday">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Sunday.IsConflict}" Value="true">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Text="{Binding Sunday.Course}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Sunday.Section}" HorizontalAlignment="Center" FontSize="10"/>
+                                <TextBlock Text="{Binding Sunday.Room}" HorizontalAlignment="Center" FontSize="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Term SY" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <ComboBox x:Name="cbTermSY" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" Width="161" Height="26" SelectedValuePath="ID" DisplayMemberPath="TermSY" SelectionChanged="cbTermSY_SelectionChanged"/>
+
+    </Grid>
+</Page>

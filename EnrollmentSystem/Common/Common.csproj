@@ -45,7 +45,9 @@
     <Compile Include="Db.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\CourseEnrollment.cs" />
     <Compile Include="Model\Curriculum.cs" />
+    <Compile Include="Model\EnrollmentStatus.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Model\Schedule.cs" />
     <Compile Include="Model\Section.cs" />

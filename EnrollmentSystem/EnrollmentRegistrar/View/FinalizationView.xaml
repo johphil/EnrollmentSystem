@@ -1,0 +1,15 @@
+﻿<Window x:Class="EnrollmentRegistrar.View.FinalizationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnrollmentRegistrar.View"
+        mc:Ignorable="d"
+        Title="Finalize / Unfinalize" Height="87.188" Width="372.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Enrollment Status" Margin="10,10,235,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <ComboBox x:Name="cbEnrollmentStatus" Margin="134,10,91,0" VerticalAlignment="Top" Height="26" SelectedValuePath="EnrollmentStatusID" DisplayMemberPath="Description"/>
+        <Button x:Name="btnChange" Content="Change" Margin="278,10,10,0" VerticalAlignment="Top" Height="26" Click="btnChange_Click"/>
+
+    </Grid>
+</Window>

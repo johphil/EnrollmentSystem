@@ -14,12 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using EnrollmentStudent;
+using EnrollmentRegistrar;
 using Common;
-using EnrollmentStudent.View;
 using Common.Model;
+using EnrollmentRegistrar.View;
 
-namespace EnrollmentStudent
+namespace EnrollmentRegistrar
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -33,17 +33,12 @@ namespace EnrollmentStudent
         }
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            PersonInfo user = Db.Login(SQL.ConString, TbAccount.Text, TbPassword.Password, Globals.AUTH_STUDENT);
+            PersonInfo user = Db.Login(SQL.ConString, TbAccount.Text, TbPassword.Password, Globals.AUTH_REGISTRAR);
             if (user != null)
             {
                 MessageBox.Show($"Welcome, { user.LastName }");
-
-                Student s = Db.GetStudentInfo(SQL.ConString, user);
-                if (s != null)
-                {
-                    DashboardView dView = new DashboardView(s);
-                    dView.Show();
-                }
+                StudentEnrollmentView seView = new StudentEnrollmentView();
+                seView.Show();
 
                 this.Close();
             }

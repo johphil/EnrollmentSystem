@@ -16,5 +16,6 @@ namespace Common.Model
         public int? YearStanding { get; set; }
         public string CoursePreReq { get; set; }
         public string CourseCoReq { get; set; }
+        public bool IsInclude { get; set; }
     }
 }

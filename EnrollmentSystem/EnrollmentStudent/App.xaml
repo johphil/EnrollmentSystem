@@ -4,14 +4,6 @@
              xmlns:local="clr-namespace:EnrollmentStudent"
              StartupUri="View\LoginView.xaml">
     <Application.Resources>
-        <!--Menu-->
-        <Style TargetType="Menu">
-            <Setter Property="Height" Value="25"/>
-        </Style>
-        <Style TargetType="MenuItem">
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-
         <!--TextBlocks-->
         <Style x:Key="txtTitle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="25" />
@@ -174,6 +166,18 @@
             <Setter Property="IsHitTestVisible" Value="False"/>
         </Style>
 
+        <Style x:Key="dgCellCheckBox" TargetType="DataGridCell">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
         <!--DataGrid Cells Curriculum-->
         <Style x:Key="dgColumnHeaderCurriculum" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>

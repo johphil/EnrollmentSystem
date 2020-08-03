@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,6 +17,11 @@ namespace Common
         public const int AUTH_REGISTRAR = 2;
         public const int AUTH_STUDENT = 3;
 
+        //ENROLLMENT STATUS
+        public const int ESTATUS_FINALIZED = 1;
+        public const int ESTATUS_UNFINALIZED = 2;
+        public const int ESTATUS_ENROLLED = 3;
+
         //ERROR STRINGS
         public const string ERROR_FAIL_CONNECTION = "Connection to the database could not be established.";
 
@@ -31,6 +37,8 @@ namespace Common
             public string Course { get; set; }
             public string Section { get; set; }
             public string Room { get; set; }
+            public bool IsConflict { get; set; }
+            public float Credit { get; set; }
         }
 
         //GENERATE MD5 HASH WITH SALT

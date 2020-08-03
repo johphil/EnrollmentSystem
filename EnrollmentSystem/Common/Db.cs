@@ -10,6 +10,7 @@ using System.Data;
 using System.Collections.ObjectModel;
 using System.Windows;
 using Common.Model;
+using static Common.Globals;
 
 namespace Common
 {
@@ -104,10 +105,16 @@ namespace Common
                                         ID = reader.GetInt32(1),
                                         Code = reader.GetString(2),
                                         Description = reader.GetString(3),
-                                        Units = float.Parse(reader["UnitsReq"].ToString())
+                                        Units = reader["UnitsReq"] == DBNull.Value ? 0 : float.Parse(reader["UnitsReq"].ToString())
                                     },
-                                    Standing = reader.GetString(4),
-                                    StudentInfo = uStudent
+                                    Standing = new Standing
+                                    {
+                                        ID = reader.GetInt32(6),
+                                        YearStanding = reader.GetString(4),
+                                        Year = reader.GetInt32(7)
+                                    },
+                                    StudentInfo = uStudent,
+                                    StudentNumber = reader.GetString(8)
                                 };
                             }
                             else
@@ -232,8 +239,58 @@ namespace Common
                 return null;
             }
         }
+        //GET COURSE SECTIONS 
+        public static DataTable GetCourseSections(string CON_ENROLLMENTDB, int StudentID, int TermSchoolYearID, int CourseID)
+        {
+            try
+            {
+                DataTable table = new DataTable("CourseSections");
+                table.Columns.Add("CourseScheduleID");
+                table.Columns.Add("Rooms");
+                table.Columns.Add("CourseID");
+                table.Columns.Add("CourseCode");
+                table.Columns.Add("SectionID");
+                table.Columns.Add("SectionCode");
+                table.Columns.Add("IsTaken", typeof(bool));
+
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCourseSections", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = CourseID;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                table.Rows.Add(new object[]
+                                {
+                                    reader.GetInt32(0),
+                                    reader.GetString(1),
+                                    reader.GetInt32(2),
+                                    reader.GetString(3),
+                                    reader.GetInt32(4),
+                                    reader.GetString(5),
+                                    reader["StudentID"] != DBNull.Value && reader.GetInt32(6) == StudentID ? true : false
+                                });
+                            }
+                        }
+                    }
+                }
+                return table;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
         //GET TERM AND SCHOOLYEAR
-        public static List<TermSchoolYear> GetTermSY(string CON_ENROLLMENTDB)
+        public static List<TermSchoolYear> GetTermSY(string CON_ENROLLMENTDB, Student student = null)
         {
             try
             {
@@ -243,7 +300,8 @@ namespace Common
                     using (SqlCommand command = new SqlCommand("spGetTermSY", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-
+                        if (student != null)
+                            command.Parameters.Add("studentid", SqlDbType.Int).Value = student.StudentID;
 
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -254,14 +312,52 @@ namespace Common
                                 {
                                     ID = reader.GetInt32(0),
                                     TermSY = reader.GetString(1),
-                                    DateStart = reader.GetDateTime(2),
-                                    DateEnd = reader.GetDateTime(3)
+                                    Term = reader.GetInt32(2),
+                                    DateStart = reader.GetDateTime(3),
+                                    DateEnd = reader.GetDateTime(4)
                                 });
                             }
                         }
                     }
                 }
                 return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET CURRENT TERM SY 
+        public static TermSchoolYear GetCurrentTermSY(string CON_ENROLLMENTDB)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCurrentTermSY", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new TermSchoolYear()
+                                {
+                                    ID = reader.GetInt32(0),
+                                    TermSY = reader.GetString(1),
+                                    Term = reader.GetInt32(2),
+                                    DateStart = reader.GetDateTime(3),
+                                    DateEnd = reader.GetDateTime(4)
+                                };
+                            }
+                            else
+                                return null;
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -475,7 +571,8 @@ namespace Common
                                 collection.Add(new Standing()
                                 {
                                     ID = reader.GetInt32(0),
-                                    YearStanding = reader.GetString(1),
+                                    Year = reader.GetInt32(1),
+                                    YearStanding = reader.GetString(2),
                                 });
                             }
                         }
@@ -543,6 +640,288 @@ namespace Common
                     }
                 }
                 return table;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //INSERT COURSE ENROLLMENT
+        public static int InsertCourseEnrollment(string CON_ENROLLMENTDB, CourseEnrollment courseEnrollment)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spInsertCourseEnrollment", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = courseEnrollment.StudentID;
+                        command.Parameters.Add("csid", SqlDbType.Int).Value = courseEnrollment.CourseScheduleID;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = courseEnrollment.CourseID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = courseEnrollment.TermSchoolYearID;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (reader.GetInt32(0) == -5) //Already exist / taken -5 -> spInsertCourseEnrollment
+                                {
+                                    MessageBox.Show("This course already exist! Remove first and then assign again.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                                }
+                                return -1;
+                            }
+                            return 1;
+                        }
+                        //return command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+        }
+        //GET COURSE ENROLLMENT
+        public static List<COURSE_TIMESLOT> GetCourseEnrollment(string CON_ENROLLMENTDB, int StudentID, int TermSchoolYearID, bool IsRegistrar = false)
+        {
+            try
+            {
+                List<COURSE_TIMESLOT> collection = new List<COURSE_TIMESLOT>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCourseEnrollment", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        if (IsRegistrar)
+                            command.Parameters.Add("isregistrar", SqlDbType.Int).Value = 1;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (IsRegistrar)
+                                {
+                                    collection.Add(new COURSE_TIMESLOT()
+                                    {
+                                        Course = reader.GetString(0),
+                                        Section = reader.GetString(1),
+                                        Room = reader.GetString(2),
+                                        IsConflict = false,
+                                        Credit = (float)reader.GetDouble(3)
+                                    });
+                                }
+                                else
+                                {
+                                    collection.Add(new COURSE_TIMESLOT()
+                                    {
+                                        Course = reader.GetString(0),
+                                        Section = reader.GetString(1),
+                                        Room = reader.GetString(2),
+                                        IsConflict = false
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET COURSE ENROLLMENT
+        public static List<int> GetCourseOnlyEnrollment(string CON_ENROLLMENTDB, int StudentID, int TermSchoolYearID)
+        {
+            try
+            {
+                List<int> collection = new List<int>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetCourseEnrollment2", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //DELETE COURSE ENROLLMENT
+        public static int DeleteCourseEnrollment(string CON_ENROLLMENTDB, int StudentID, int CourseID, int TermSchoolYearID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spDeleteCourseEnrollment", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("courseid", SqlDbType.Int).Value = CourseID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        connection.Open();
+                        return command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+        }
+        //INSERT OR UPDATE STUDENT ENROLLMENT STATUS
+        public static int UpdateStudentEnrollmentStatus(string CON_ENROLLMENTDB, int StudentID, int EnrollmentStatusID, int TermSchoolYearID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spUpdateStudentsEnrolled", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("esid", SqlDbType.Int).Value = EnrollmentStatusID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        connection.Open();
+                        return command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+        }
+        //GET STUDENT ENROLLMENT STATUS
+        public static EnrollmentStatus GetStudentEnrollmentStatus(string CON_ENROLLMENTDB, int StudentID, int TermSchoolYearID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetStudentEnrollmentStatus", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new EnrollmentStatus
+                                {
+                                    EnrollmentStatusID = reader.GetInt32(0),
+                                    Code = reader.GetString(1),
+                                    Description = reader.GetString(2)
+                                };
+                            }
+
+                            return null;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET ENROLLMENT STATUS
+        public static List<EnrollmentStatus> GetEnrollmentStatus(string CON_ENROLLMENTDB)
+        {
+            try
+            {
+                List<EnrollmentStatus> collection = new List<EnrollmentStatus>();
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetEnrollmentStatus", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                collection.Add(new EnrollmentStatus
+                                {
+                                    EnrollmentStatusID = reader.GetInt32(0),
+                                    Code = reader.GetString(1),
+                                    Description = reader.GetString(2)
+                                });
+                            }
+                        }
+                    }
+                }
+                return collection;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        //GET STUDENT ENROLLMENT INFO
+        public static string[] GetStudentEnrollmentInfo(string CON_ENROLLMENTDB, string StudentNumber)
+        {
+            try
+            {
+                string[] collection = new string[5];
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spGetStudent2", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentnumber", SqlDbType.Int).Value = StudentNumber;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                collection[0] = reader.GetInt32(0).ToString(); //StudentID
+                                collection[1] = reader.GetString(1); //FullName
+                                collection[2] = reader.GetString(2); //Program
+                                collection[3] = reader.GetString(3); //Standing
+                                collection[4] = reader.GetString(4); //Enrollment Status
+                            }
+                        }
+                    }
+                }
+                return collection;
             }
             catch (Exception e)
             {

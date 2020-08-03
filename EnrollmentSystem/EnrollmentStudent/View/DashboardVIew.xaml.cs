@@ -26,8 +26,8 @@ namespace EnrollmentStudent.View
         public DashboardView(Student student)
         {
             InitializeComponent();
-            SelectPage(1);
             myStudent = student;
+            SelectPage(1);
         }
 
         private void SelectPage(int page)
@@ -50,6 +50,7 @@ namespace EnrollmentStudent.View
                     }
                 case 2:
                     {
+                        frameDashboard.Content = new Pages.SchedulePage(myStudent);
                         titleText.Text = "My Schedule";
                         titleIcon.Source = new BitmapImage(new Uri("pack://application:,,,/img/icon/icon-schedule.png"));
                         btnCurriculum.IsEnabled = true;
@@ -71,6 +72,7 @@ namespace EnrollmentStudent.View
                     }
                 case 4:
                     {
+                        frameDashboard.Content = new Pages.EnrollmentPage(myStudent);
                         titleText.Text = "My Enrollment";
                         titleIcon.Source = new BitmapImage(new Uri("pack://application:,,,/img/icon/icon-enrollment.png"));
                         btnCurriculum.IsEnabled = true;

@@ -13,8 +13,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Separator HorizontalAlignment="Left" Height="11" Margin="10,41,0,0" VerticalAlignment="Top" Width="804"/>
-        <Label Content="Student ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-        <Label x:Name="lblStudentID" Content="Label" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Student Number" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblStudentNumber" Content="Label" HorizontalAlignment="Left" Margin="119,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
         <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="26" Margin="58,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" Style="{DynamicResource tbReadOnly}"/>
         <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="315,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" Style="{DynamicResource tbReadOnly}"/>

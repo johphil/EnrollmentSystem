@@ -25,8 +25,8 @@
                 <DataGridTextColumn Header="Term" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Term}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Course Code" Width="80" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseCode}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Course Title" Width="290" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CourseTitle}" ElementStyle="{DynamicResource txtWrap}"/>
-                <DataGridTextColumn Header="Lec Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LectureHrs}" ElementStyle="{DynamicResource txtWrap}"/>
-                <DataGridTextColumn Header="Lab Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LabHrs}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lec Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LectureHours}" ElementStyle="{DynamicResource txtWrap}"/>
+                <DataGridTextColumn Header="Lab Hrs" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding LabHours}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Credit Units" Width="40" CellStyle="{DynamicResource dgCellAlignCenter}" Binding="{Binding Credit}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Pre-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding PreReq}" ElementStyle="{DynamicResource txtWrap}"/>
                 <DataGridTextColumn Header="Co-Requisites" Width="115" CellStyle="{DynamicResource dgCellAlignLeft}" Binding="{Binding CoReq}" ElementStyle="{DynamicResource txtWrap}"/>
@@ -47,10 +47,10 @@
             <ComboBoxItem Content="3"/>
             <ComboBoxItem Content="4"/>
         </ComboBox>
-        <Label Content="Total" HorizontalAlignment="Left" Margin="170,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="291" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lblTotalLecHrs" Content="#" HorizontalAlignment="Left" Margin="461,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lblTotalLabHrs" Content="#" HorizontalAlignment="Left" Margin="500,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lblTotalCredit" Content="#" HorizontalAlignment="Left" Margin="540,424,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center"/>
+        <Label Content="Total" HorizontalAlignment="Left" Margin="10,0,0,19" Style="{DynamicResource labelGeneral}" Width="802" HorizontalContentAlignment="Center" Height="26" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblTotalLecHrs" Content="#" HorizontalAlignment="Left" Margin="461,0,0,19" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblTotalLabHrs" Content="#" HorizontalAlignment="Left" Margin="500,0,0,19" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
+        <Label x:Name="lblTotalCredit" Content="#" HorizontalAlignment="Left" Margin="540,0,0,19" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Page>

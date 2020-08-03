@@ -43,20 +43,27 @@ namespace EnrollmentStudent.View.Pages
                 dgCourseCurriculum.ItemsSource = table.DefaultView;
 
                 lblProgram.Content = myStudent.StudentProgram.Code;
-                lblYearLevel.Content = myStudent.Standing;
+                lblYearLevel.Content = myStudent.Standing.YearStanding;
                 lblUnitsReq.Content = myStudent.StudentProgram.Units;
 
-                /*float totLecHrs, totLabHrs, totCredit;
-                totLecHrs = table.AsEnumerable().Sum(t => t.Field<float>("LectureHours"));
+                float totLecHrs = 0, totLabHrs = 0, totCredit = 0;
+                /*totLecHrs = table.AsEnumerable().Sum(t => t.Field<float>("LectureHours"));
                 totLabHrs = table.AsEnumerable().Sum(t => t.Field<float>("LabHour"));
                 totCredit = table.AsEnumerable().Sum(t => t.Field<float>("Credit"));
                 lblTotalLecHrs.Content = totLecHrs.ToString();
                 lblTotalLabHrs.Content = totLabHrs.ToString();
                 lblTotalCredit.Content = totCredit.ToString();*/
 
-                lblTotalLecHrs.Content = table.Compute("SUM(LectureHours)", string.Empty);
-                lblTotalLabHrs.Content = table.Compute("SUM(LabHours)", string.Empty);
-                lblTotalCredit.Content = table.Compute("SUM(Credit)", string.Empty);
+                foreach (DataRow dr in table.Rows)
+                {
+                    totLecHrs += string.IsNullOrEmpty(dr["LectureHours"].ToString()) ? 0 : float.Parse(dr["LectureHours"].ToString());
+                    totLabHrs += string.IsNullOrEmpty(dr["LabHours"].ToString()) ? 0 : float.Parse(dr["LabHours"].ToString());
+                    totCredit += string.IsNullOrEmpty(dr["Credit"].ToString()) ? 0 : float.Parse(dr["Credit"].ToString());
+                }
+
+                lblTotalLecHrs.Content = totLecHrs.ToString();
+                lblTotalLabHrs.Content = totLabHrs.ToString();
+                lblTotalCredit.Content = totCredit.ToString();
             }
         }
 

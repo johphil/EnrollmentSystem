@@ -292,7 +292,7 @@ namespace EnrollmentRegistrar.View
                         }
                         else
                         {
-                            if (Db.UpdateStudentEnrollmentStatus(SQL.ConString, (int)StudentID, Globals.ESTATUS_ENROLLED, currentTermSY.ID) > 0)
+                            if (Db.UpdateStudentEnrollmentStatus(SQL.ConString, (int)StudentID, Globals.ESTATUS_ENROLLED, currentTermSY.ID, Globals.AUTH_REGISTRAR) > 0)
                             {
                                 string msg = string.Format("\nYou have successfully enrolled: \nName: {0} \nProgram: {1}\nTotal Units: {2}\n", tbStudentName.Text, tbStudentProgram.Text, lblTotalCredits.Content);
                                 MessageBox.Show(msg, "Enroll Success", MessageBoxButton.OK, MessageBoxImage.Information);

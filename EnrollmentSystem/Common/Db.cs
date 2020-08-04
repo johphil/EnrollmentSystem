@@ -799,7 +799,7 @@ namespace Common
             }
         }
         //INSERT OR UPDATE STUDENT ENROLLMENT STATUS
-        public static int UpdateStudentEnrollmentStatus(string CON_ENROLLMENTDB, int StudentID, int EnrollmentStatusID, int TermSchoolYearID)
+        public static int UpdateStudentEnrollmentStatus(string CON_ENROLLMENTDB, int StudentID, int EnrollmentStatusID, int TermSchoolYearID, int? Authorization = null)
         {
             try
             {
@@ -811,6 +811,9 @@ namespace Common
                         command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
                         command.Parameters.Add("esid", SqlDbType.Int).Value = EnrollmentStatusID;
                         command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+                        
+                        if (Authorization != null)
+                            command.Parameters.Add("auth", SqlDbType.Int).Value = Authorization;
 
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())

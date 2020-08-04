@@ -122,6 +122,24 @@ namespace EnrollmentStudent.View
             DisplayCourseTimeSlot(mapTimeSlotTemp);
         }
 
+        private void UpdateTotals()
+        {
+            float nTotalLecHrs = 0, nTotalLabHrs = 0, nTotalCredit = 0;
+            foreach (DataRow dr in dtInclude.Rows)
+            {
+                if (!string.IsNullOrWhiteSpace(dr["SectionCode"].ToString()))
+                {
+                    nTotalLecHrs += string.IsNullOrEmpty(dr[4].ToString()) ? 0 : float.Parse(dr[4].ToString());
+                    nTotalLabHrs += string.IsNullOrEmpty(dr[5].ToString()) ? 0 : float.Parse(dr[5].ToString());
+                    nTotalCredit += float.Parse(dr[6].ToString());
+                }
+            }
+
+            lblTotalCredit.Content = nTotalCredit.ToString();
+            lblTotalLabHrs.Content = nTotalLabHrs.ToString();
+            lblTotalLecHrs.Content = nTotalLecHrs.ToString();
+        }
+
         private void SetSectionCode(string CourseCode, string SectionCode)
         {
             foreach (DataRow dr in dtInclude.Rows)
@@ -132,6 +150,8 @@ namespace EnrollmentStudent.View
                     dr["HasSection"] = true;
                 }
             }
+
+            UpdateTotals();
         }
 
         private void DisplayCourseTimeSlot(List<Globals.COURSE_TIMESLOT> map)
@@ -271,6 +291,7 @@ namespace EnrollmentStudent.View
                         dtInclude.Rows[dgIncludedCourses.SelectedIndex]["HasSection"] = true;
                         dtInclude.Rows[dgIncludedCourses.SelectedIndex]["SectionCode"] = dtSection.Rows[dgSections.SelectedIndex]["SectionCode"];
                         dtSection.Rows[dgSections.SelectedIndex]["IsTaken"] = true;
+                        UpdateTotals();
                     }
                 }
                 else
@@ -297,6 +318,7 @@ namespace EnrollmentStudent.View
                         int selectedCourse = Int32.Parse(dtInclude.Rows[dgIncludedCourses.SelectedIndex][9].ToString());
                         dtSection = Db.GetCourseSections(SQL.ConString, myStudent.StudentID, currentTermSY.ID, selectedCourse);
                         dgSections.ItemsSource = dtSection.DefaultView;
+                        UpdateTotals();
                     }
                 }
             }

@@ -42,7 +42,7 @@ namespace EnrollmentRegistrar.View
         {
             if (cbEnrollmentStatus.SelectedIndex != -1)
             {
-                if (Db.UpdateStudentEnrollmentStatus(SQL.ConString, StudentID, (int)cbEnrollmentStatus.SelectedValue, TermSchoolYearID) > 0)
+                if (Db.UpdateStudentEnrollmentStatus(SQL.ConString, StudentID, (int)cbEnrollmentStatus.SelectedValue, TermSchoolYearID, Globals.AUTH_REGISTRAR) > 0)
                 {
                     EnrollmentStatus = ((EnrollmentStatus)cbEnrollmentStatus.SelectedItem).Description;
                     MessageBox.Show($"You have changed the enrollment status to { EnrollmentStatus }!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);

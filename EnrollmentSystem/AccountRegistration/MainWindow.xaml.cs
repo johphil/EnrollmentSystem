@@ -29,6 +29,7 @@ namespace AccountRegistration
         {
             InitializeComponent();
             cbProgram.ItemsSource = GetPrograms();
+            tbAccount.Focus();
         }
 
         public struct PROGRAM
@@ -39,13 +40,63 @@ namespace AccountRegistration
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Register() > 0)
+            if (Valid())
             {
-                MessageBox.Show(string.Format("The account {0} has been created.", tbAccount.Text));
+                if (Register() > 0)
+                {
+                    MessageBox.Show(string.Format("The account {0} has been created.", tbAccount.Text), "Success",MessageBoxButton.OK,MessageBoxImage.Information);
+                    tbAccount.Clear();
+                    tbPassword.Clear();
+                    cbAuth.SelectedIndex = 0;
+                    cbProgram.SelectedIndex = -1;
+                    cbProgram.IsEnabled = false;
+                    tbLastName.Clear();
+                    tbFirstName.Clear();
+                    tbMiddleName.Clear();
+                    cbGender.SelectedIndex = 0;
+                    dpBirthday.SelectedDate = null;
+                    tbAddress.Clear();
+                    tbContact.Clear();
+                    tbAccount.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Account existing or could not be created.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private bool Valid()
+        {
+            if (string.IsNullOrWhiteSpace(tbAccount.Text) ||
+                string.IsNullOrWhiteSpace(tbPassword.Text) ||
+                string.IsNullOrWhiteSpace(tbLastName.Text) ||
+                string.IsNullOrWhiteSpace(tbFirstName.Text) ||
+                string.IsNullOrWhiteSpace(tbMiddleName.Text) ||
+                string.IsNullOrWhiteSpace(tbAddress.Text) ||
+                string.IsNullOrWhiteSpace(tbContact.Text) ||
+                cbAuth.SelectedIndex == -1 ||
+                cbGender.SelectedIndex == -1 ||
+                !dpBirthday.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Please fill up all fields!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return false;
             }
             else
             {
-                MessageBox.Show("Error");
+                if (cbAuth.SelectedIndex == 2)
+                {
+                    if (cbProgram.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Please select a program!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
 
@@ -145,6 +196,19 @@ namespace AccountRegistration
             {
                 MessageBox.Show(e.Message);
                 return null;
+            }
+        }
+
+        private void cbAuth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.IsLoaded)
+            {
+                if (cbAuth.SelectedIndex == 2)
+                {
+                    cbProgram.IsEnabled = true;
+                }
+                else
+                    cbProgram.IsEnabled = false;
             }
         }
     }

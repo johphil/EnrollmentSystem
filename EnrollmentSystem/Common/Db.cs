@@ -290,7 +290,7 @@ namespace Common
             }
         }
         //GET TERM AND SCHOOLYEAR
-        public static List<TermSchoolYear> GetTermSY(string CON_ENROLLMENTDB, Student student = null)
+        public static List<TermSchoolYear> GetTermSY(string CON_ENROLLMENTDB, int Authorization, int? StudentID = null)
         {
             try
             {
@@ -300,8 +300,9 @@ namespace Common
                     using (SqlCommand command = new SqlCommand("spGetTermSY", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        if (student != null)
-                            command.Parameters.Add("studentid", SqlDbType.Int).Value = student.StudentID;
+                        command.Parameters.Add("auth", SqlDbType.Int).Value = Authorization;
+                        if (StudentID != null)
+                            command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
 
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -812,7 +813,14 @@ namespace Common
                         command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
 
                         connection.Open();
-                        return command.ExecuteNonQuery();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return reader.GetInt32(0);
+                            }
+                            return -1;
+                        }
                     }
                 }
             }
@@ -927,6 +935,29 @@ namespace Common
             {
                 MessageBox.Show(e.Message);
                 return null;
+            }
+        }
+        //INITIALIZE STUDENT ENROLLMENT STATUS
+        public static void InitializeEnrollment(string CON_ENROLLMENTDB, int StudentID, int TermSchoolYearID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CON_ENROLLMENTDB))
+                {
+                    using (SqlCommand command = new SqlCommand("spInitStudentEnrollment", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("studentid", SqlDbType.Int).Value = StudentID;
+                        command.Parameters.Add("tsyid", SqlDbType.Int).Value = TermSchoolYearID;
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
     }

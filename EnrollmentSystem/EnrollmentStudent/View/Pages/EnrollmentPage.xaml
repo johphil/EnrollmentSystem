@@ -10,7 +10,9 @@
 
     <Grid>
         <Label Content="Enrollment for Term SY" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-        <Label x:Name="lblTermSY" Content="TermSY" HorizontalAlignment="Left" Margin="156,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
+        <Label x:Name="lblTermSY" Content="-" HorizontalAlignment="Left" Margin="156,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
+        <Label Content="Year Level" HorizontalAlignment="Left" Margin="307,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label x:Name="lblYearLevel" Content="-" HorizontalAlignment="Left" Margin="379,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
         <Separator Height="12" Margin="10,41,10,0" VerticalAlignment="Top"/>
         <Label x:Name="lblNotAvailable" Content="Not Available" Margin="10,232,10,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral2}"/>
         <Grid x:Name="gridTable">
@@ -39,8 +41,6 @@
             <Label x:Name="lblTotalLecHrs" Content="#" HorizontalAlignment="Left" Margin="383,0,0,20" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
             <Label x:Name="lblTotalLabHrs" Content="#" HorizontalAlignment="Left" Margin="422,0,0,20" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
             <Label x:Name="lblTotalCredit" Content="#" HorizontalAlignment="Left" Margin="462,0,0,20" Style="{DynamicResource labelValue2}" Width="39" HorizontalContentAlignment="Center" Background="Gainsboro" Height="26" VerticalAlignment="Bottom"/>
-            <Label Content="Year Level" HorizontalAlignment="Left" Margin="307,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
-            <Label x:Name="lblYearLevel" Content="#" HorizontalAlignment="Left" Margin="379,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelValue2}"/>
         </Grid>
         <ComboBox x:Name="cbEnrollmentStatus" HorizontalAlignment="Left" Margin="570,10,0,0" VerticalAlignment="Top" Width="132" Height="26" DisplayMemberPath="Description" SelectedValuePath="EnrollmentStatusID" SelectionChanged="cbEnrollmentStatus_SelectionChanged"/>
         <Button x:Name="btnSections" Content="Select Sections" HorizontalAlignment="Left" Margin="707,10,0,0" VerticalAlignment="Top" Width="105" Height="26" Click="btnSections_Click"/>

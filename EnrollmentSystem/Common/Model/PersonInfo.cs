@@ -17,5 +17,12 @@ namespace Common.Model
         public DateTime DateOfBirth { get; set; }
         public string HomeAddress { get; set; }
         public string ContactNumber { get; set; }
+        public string FullName 
+        { 
+            get 
+            {
+                return $"{LastName}, {FirstName} {MiddleName}";
+            } 
+        }
     }
 }

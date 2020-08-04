@@ -27,7 +27,7 @@ namespace EnrollmentAdmin.View
             if (cbTermSY.Items.Count > 0)
                 cbTermSY.Items.Clear();
 
-            lTermSY = Db.GetTermSY(SQL.ConString);
+            lTermSY = Db.GetTermSY(SQL.ConString, Globals.AUTH_ADMINISTRATOR);
 
             foreach (TermSchoolYear tsy in lTermSY)
             {
@@ -55,6 +55,9 @@ namespace EnrollmentAdmin.View
             {
                 LoadCourseSchedules(lTermSY[cbTermSY.SelectedIndex].ID);
                 tbCourse.Text = "Search Course";
+                TermSchoolYear selectedTermSY = lTermSY[cbTermSY.SelectedIndex];
+                string strTermStartEnd = string.Format("Term Duration: {0} - {1}", selectedTermSY.DateStart.ToString("MMMM dd, yyyy"), selectedTermSY.DateEnd.ToString("MMMM dd, yyyy"));
+                statusTermStartEnd.Content = strTermStartEnd;
             }
         }
 

@@ -20,7 +20,7 @@
             </Grid.ColumnDefinitions>
             <Label Content="Student Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="110"/>
             <TextBox x:Name="tbStudentName" Height="26" Margin="125,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource tbDisplayOnly}" HorizontalAlignment="Left" Width="533"/>
-            <DataGrid x:Name="dgEnrolledCourses" Margin="10,127,10,86" IsReadOnly="True" ColumnWidth="*" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowHeaderWidth="0" AutoGenerateColumns="False" SelectionUnit="Cell" CanUserReorderColumns="False" ColumnHeaderStyle="{DynamicResource dgColumnHeaderEnroll}">
+            <DataGrid x:Name="dgEnrolledCourses" Margin="10,127,10,86" IsReadOnly="True" ColumnWidth="*" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowHeaderWidth="0" AutoGenerateColumns="False" CanUserReorderColumns="False" ColumnHeaderStyle="{DynamicResource dgColumnHeaderEnroll}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Enrolled Course" Binding="{Binding CourseCode}">
                         <DataGridTextColumn.ElementStyle>

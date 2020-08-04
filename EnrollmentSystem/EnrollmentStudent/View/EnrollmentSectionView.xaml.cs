@@ -149,7 +149,6 @@ namespace EnrollmentStudent.View
             }
             else
             {
-                int j = 0;
                 for (int day = 1; day < dtSchedule.Columns.Count; day++)
                 {
                     for (int time = 0; time < dtSchedule.Rows.Count; time++)
@@ -256,43 +255,49 @@ namespace EnrollmentStudent.View
 
         private void btnAssign_Click(object sender, RoutedEventArgs e)
         {
-            if (!isConflict)
+            if (dgSections.SelectedIndex != -1)
             {
-                if (Db.InsertCourseEnrollment(SQL.ConString, new CourseEnrollment
+                if (!isConflict)
                 {
-                    StudentID = myStudent.StudentID,
-                    CourseScheduleID = SelectedCourseScheduleID,
-                    CourseID = SelectedCourseID,
-                    TermSchoolYearID = currentTermSY.ID
-                }) > 0)
-                {
-                    MergeTimeSlot(mapTimeSlotTemp, mapTimeSlot);
-                    dtInclude.Rows[dgIncludedCourses.SelectedIndex]["HasSection"] = true;
-                    dtInclude.Rows[dgIncludedCourses.SelectedIndex]["SectionCode"] = dtSection.Rows[dgSections.SelectedIndex]["SectionCode"];
-                    dtSection.Rows[dgSections.SelectedIndex]["IsTaken"] = true;
+                    if (Db.InsertCourseEnrollment(SQL.ConString, new CourseEnrollment
+                    {
+                        StudentID = myStudent.StudentID,
+                        CourseScheduleID = SelectedCourseScheduleID,
+                        CourseID = SelectedCourseID,
+                        TermSchoolYearID = currentTermSY.ID
+                    }) > 0)
+                    {
+                        MergeTimeSlot(mapTimeSlotTemp, mapTimeSlot);
+                        dtInclude.Rows[dgIncludedCourses.SelectedIndex]["HasSection"] = true;
+                        dtInclude.Rows[dgIncludedCourses.SelectedIndex]["SectionCode"] = dtSection.Rows[dgSections.SelectedIndex]["SectionCode"];
+                        dtSection.Rows[dgSections.SelectedIndex]["IsTaken"] = true;
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Conflict schedule detected. Cannot add section.");
+                else
+                {
+                    MessageBox.Show("Conflict schedule detected. Cannot add section.", "Conflict Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            string selectedCourseCode = dtInclude.Rows[dgIncludedCourses.SelectedIndex][2].ToString();
-            int selectedCourseID = Int32.Parse(dtInclude.Rows[dgIncludedCourses.SelectedIndex][9].ToString());
-            if (MessageBox.Show($"Remove Section for { selectedCourseCode }?", "Remove Course Section", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (dgIncludedCourses.SelectedIndex != -1)
             {
-                if (Db.DeleteCourseEnrollment(SQL.ConString, myStudent.StudentID, SelectedCourseID, currentTermSY.ID) > 0)
+                string selectedCourseCode = dtInclude.Rows[dgIncludedCourses.SelectedIndex][2].ToString();
+                int selectedCourseID = Int32.Parse(dtInclude.Rows[dgIncludedCourses.SelectedIndex][9].ToString());
+                if (MessageBox.Show($"Remove Section for { selectedCourseCode }?", "Remove Course Section", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
                 {
-                    LoadTimeSlot();
-                    dtInclude.Rows[dgIncludedCourses.SelectedIndex]["HasSection"] = false;
-                    dtInclude.Rows[dgIncludedCourses.SelectedIndex]["SectionCode"] = "";
+                    if (Db.DeleteCourseEnrollment(SQL.ConString, myStudent.StudentID, SelectedCourseID, currentTermSY.ID) > 0)
+                    {
+                        LoadTimeSlot();
+                        dtInclude.Rows[dgIncludedCourses.SelectedIndex]["HasSection"] = false;
+                        dtInclude.Rows[dgIncludedCourses.SelectedIndex]["SectionCode"] = "";
 
-                    int selectedCourse = Int32.Parse(dtInclude.Rows[dgIncludedCourses.SelectedIndex][9].ToString());
-                    dtSection = Db.GetCourseSections(SQL.ConString, myStudent.StudentID, currentTermSY.ID, selectedCourse);
-                    dgSections.ItemsSource = dtSection.DefaultView;
+                        int selectedCourse = Int32.Parse(dtInclude.Rows[dgIncludedCourses.SelectedIndex][9].ToString());
+                        dtSection = Db.GetCourseSections(SQL.ConString, myStudent.StudentID, currentTermSY.ID, selectedCourse);
+                        dgSections.ItemsSource = dtSection.DefaultView;
+                    }
                 }
             }
         }

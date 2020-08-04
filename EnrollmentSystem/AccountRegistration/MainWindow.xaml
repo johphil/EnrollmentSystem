@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountRegistration"
         mc:Ignorable="d"
-        Title="Registration" Height="551.86" Width="302.012">
+        Title="Registration" Height="584.514" Width="302.012">
     <Grid>
         <Label Content="Account" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <Label Content="Authentication" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbAccount" HorizontalAlignment="Left" Height="23" Margin="103,14,0,0" VerticalAlignment="Top" Width="167" TabIndex="0"/>
         <TextBox x:Name="tbPassword" HorizontalAlignment="Left" Height="23" Margin="103,44,0,0" VerticalAlignment="Top" Width="167" TabIndex="1"/>
-        <ComboBox x:Name="cbAuth" HorizontalAlignment="Left" Margin="103,72,0,0" VerticalAlignment="Top" Width="167" SelectedIndex="0" TabIndex="2">
+        <ComboBox x:Name="cbAuth" HorizontalAlignment="Left" Margin="103,72,0,0" VerticalAlignment="Top" Width="167" SelectedIndex="0" TabIndex="2" SelectionChanged="cbAuth_SelectionChanged">
             <ComboBoxItem Content="Admin"/>
             <ComboBoxItem Content="Registrar"/>
             <ComboBoxItem Content="Student"/>
@@ -38,7 +38,8 @@
         <TextBox x:Name="tbContact" HorizontalAlignment="Left" Height="23" Margin="103,430,0,0" VerticalAlignment="Top" Width="167" TabIndex="9"/>
         <Label Content="Personal Information" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Program(Stdnt)" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="103,105,0,0" VerticalAlignment="Top" Width="167" TabIndex="2" DisplayMemberPath="Code"/>
+        <ComboBox x:Name="cbProgram" HorizontalAlignment="Left" Margin="103,105,0,0" VerticalAlignment="Top" Width="167" TabIndex="2" DisplayMemberPath="Code" IsEnabled="False"/>
+        <Label Content="All fields are required." HorizontalAlignment="Left" Margin="103,504,0,0" VerticalAlignment="Top" Width="167"/>
 
     </Grid>
 </Window>

@@ -23,10 +23,13 @@ namespace EnrollmentStudent.View.Pages
     public partial class ProfilePage : Page
     {
         Student myStudent;
-        public ProfilePage(Student s)
+        DashboardView dView;
+
+        public ProfilePage(Student s, DashboardView dView)
         {
             InitializeComponent();
             myStudent = s;
+            this.dView = dView;
             LoadInfo();
         }
 
@@ -40,6 +43,13 @@ namespace EnrollmentStudent.View.Pages
             tbGender.Text = myStudent.StudentInfo.Gender;
             tbContactNumber.Text = myStudent.StudentInfo.ContactNumber;
             tbHomeAddress.Text = myStudent.StudentInfo.HomeAddress;
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginView lView = new LoginView();
+            lView.Show();
+            dView.Close();
         }
     }
 }

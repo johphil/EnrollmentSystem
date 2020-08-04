@@ -33,5 +33,6 @@
         <Separator HorizontalAlignment="Left" Height="11" Margin="10,184,0,0" VerticalAlignment="Top" Width="804"/>
         <Rectangle Fill="#FFF4F4F5" Margin="10,200,0,10" Stroke="Black" HorizontalAlignment="Left" Width="804"/>
         <TextBlock Margin="10,200,0,10" TextWrapping="Wrap" Text="Announcement" Padding="5" Width="804" HorizontalAlignment="Left"/>
+        <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Right" Margin="0,10,20,0" VerticalAlignment="Top" Width="75" Height="26" Click="btnLogout_Click"/>
     </Grid>
 </Page>

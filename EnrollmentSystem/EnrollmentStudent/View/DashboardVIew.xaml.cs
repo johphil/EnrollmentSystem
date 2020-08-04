@@ -38,7 +38,7 @@ namespace EnrollmentStudent.View
                     {
                         if (myStudent != null)
                         {
-                            frameDashboard.Content = new Pages.ProfilePage(myStudent);
+                            frameDashboard.Content = new Pages.ProfilePage(myStudent, this);
                             titleText.Text = "Profile";
                             titleIcon.Source = new BitmapImage(new Uri("pack://application:,,,/img/icon/icon-profile.png"));
                             btnCurriculum.IsEnabled = true;

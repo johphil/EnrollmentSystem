@@ -60,6 +60,7 @@
         </DataGrid>
         <StatusBar Height="35" VerticalAlignment="Bottom">
             <Label x:Name="statusSelectedCourse" Content="" Padding="15,5,5,5"/>
+            <Label x:Name="statusTermStartEnd" Content="" Padding="15,5,5,5"/>
         </StatusBar>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
@@ -85,6 +86,6 @@
         <Label Content="Term &amp; SY" HorizontalAlignment="Right" Margin="0,30,146,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}" Width="88" Height="26"/>
         <ComboBox x:Name="cbTermSY" HorizontalAlignment="Right" Margin="0,30,10,0" VerticalAlignment="Top" Width="131" Height="26" SelectionChanged="cbTermSY_SelectionChanged" IsEditable="True"/>
         <TextBox x:Name="tbCourse" HorizontalAlignment="Right" Height="26" Margin="0,30,239,0" TextWrapping="Wrap" Text="Search Course" VerticalAlignment="Top" Width="131" Style="{DynamicResource tbInputText}" IsReadOnly="True" HorizontalContentAlignment="Center" CharacterCasing="Upper" Cursor="Hand" PreviewMouseDown="tbCourse_PreviewMouseDown"/>
-        <Label Content="Filter" HorizontalAlignment="Right" Margin="0,30,374,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
+        <Label Content="Filter" HorizontalAlignment="Right" Margin="0,30,375,0" VerticalAlignment="Top" Style="{DynamicResource labelGeneral}"/>
     </Grid>
 </Window>

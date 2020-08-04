@@ -65,7 +65,6 @@ namespace Common
         }
 
         //OTHERS
-        public const string TABLE_BLANK = "-";
         public const string TABLE_DELIM = ",";
 
         public static DataTable TableScheduleBase()

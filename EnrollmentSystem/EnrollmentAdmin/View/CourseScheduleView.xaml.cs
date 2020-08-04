@@ -124,7 +124,7 @@ namespace EnrollmentAdmin.View
             //if (cbTermSY.Items.Count > 0)
             //    cbTermSY.Items.Clear();
 
-            lTermSY = Db.GetTermSY(SQL.ConString);
+            lTermSY = Db.GetTermSY(SQL.ConString, Globals.AUTH_ADMINISTRATOR);
 
             cbTermSY.ItemsSource = lTermSY;
 
@@ -183,7 +183,6 @@ namespace EnrollmentAdmin.View
                 cbSection.Items.Count > 0 &&
                 cbTermSY.Items.Count > 0)
             {
-                int j = 0;
                 for (int day = 1; day < DtSchedule.Columns.Count; day++)
                 {
                     for (int time = 0; time < DtSchedule.Rows.Count; time++)

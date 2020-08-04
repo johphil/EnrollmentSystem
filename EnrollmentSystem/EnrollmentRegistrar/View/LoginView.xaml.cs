@@ -36,7 +36,7 @@ namespace EnrollmentRegistrar
             PersonInfo user = Db.Login(SQL.ConString, TbAccount.Text, TbPassword.Password, Globals.AUTH_REGISTRAR);
             if (user != null)
             {
-                MessageBox.Show($"Welcome, { user.LastName }");
+                MessageBox.Show($"Welcome, { user.FullName }", "Welcome", MessageBoxButton.OK, MessageBoxImage.Information);
                 StudentEnrollmentView seView = new StudentEnrollmentView();
                 seView.Show();
 
@@ -46,6 +46,11 @@ namespace EnrollmentRegistrar
             {
                 MessageBox.Show("Invalid Username/Password!");
             }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

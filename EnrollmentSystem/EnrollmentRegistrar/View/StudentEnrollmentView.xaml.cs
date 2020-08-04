@@ -35,9 +35,18 @@ namespace EnrollmentRegistrar.View
         {
             InitializeComponent();
             currentTermSY = Db.GetCurrentTermSY(SQL.ConString);
-            lblTermSY.Content = currentTermSY.TermSY;
-            tbSearchStudentNumber.Focus();
-            dgEnrolledCourses.ItemsSource = enrolledCourses;
+
+            if (currentTermSY == null)
+            {
+                MessageBox.Show("Enrollment has not yet started!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.Close();
+            }
+            else
+            {
+                lblTermSY.Content = currentTermSY.TermSY;
+                tbSearchStudentNumber.Focus();
+                dgEnrolledCourses.ItemsSource = enrolledCourses;
+            }
         }
 
         public class ENROLLED_COURSES
@@ -230,7 +239,8 @@ namespace EnrollmentRegistrar.View
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            LoadInfo();
+            if (!string.IsNullOrWhiteSpace(tbSearchStudentNumber.Text))
+                LoadInfo();
         }
 
         private void btnSetEnrollmentStatus_Click(object sender, RoutedEventArgs e)

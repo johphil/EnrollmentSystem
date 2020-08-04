@@ -41,7 +41,7 @@ namespace EnrollmentStudent.View.Pages
 
         private void LoadTermSY()
         {
-            List<TermSchoolYear> lTermSY = Db.GetTermSY(SQL.ConString, myStudent);
+            List<TermSchoolYear> lTermSY = Db.GetTermSY(SQL.ConString, Globals.AUTH_STUDENT, myStudent.StudentID);
             cbTermSY.ItemsSource = lTermSY;
             cbTermSY.SelectedIndex = 0;
         }
@@ -116,7 +116,6 @@ namespace EnrollmentStudent.View.Pages
             }
             else
             {
-                int j = 0;
                 for (int day = 1; day < dtSchedule.Columns.Count; day++)
                 {
                     for (int time = 0; time < dtSchedule.Rows.Count; time++)

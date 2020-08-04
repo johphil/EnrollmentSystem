@@ -36,10 +36,12 @@ namespace EnrollmentStudent.View.Pages
             myStudent = s;
 
             if (LoadTermSY())
+            {
+                Db.InitializeEnrollment(SQL.ConString, myStudent.StudentID, currentTermSY.ID);
                 LoadCourses();
-
-            LoadEnrollmentStatus();
-            FinalizeTable();
+                LoadEnrollmentStatus();
+                FinalizeTable();
+            }
         }
 
         private void LoadEnrollmentStatus()
@@ -81,6 +83,8 @@ namespace EnrollmentStudent.View.Pages
                 lblNotAvailable.Visibility = Visibility.Hidden;
                 btnSections.IsEnabled = true;
                 btnSections.Visibility = Visibility.Visible;
+                cbEnrollmentStatus.Visibility = Visibility.Visible;
+                cbEnrollmentStatus.IsEnabled = true;
                 return true;
             }
             else
@@ -90,6 +94,8 @@ namespace EnrollmentStudent.View.Pages
                 lblNotAvailable.Visibility = Visibility.Visible;
                 btnSections.IsEnabled = false;
                 btnSections.Visibility = Visibility.Hidden;
+                cbEnrollmentStatus.Visibility = Visibility.Hidden;
+                cbEnrollmentStatus.IsEnabled = false;
                 return false;
             }
         }
@@ -193,6 +199,7 @@ namespace EnrollmentStudent.View.Pages
             }
         }
 
+        bool bHandled = false;
         private void cbEnrollmentStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbEnrollmentStatus.IsLoaded)
@@ -203,11 +210,17 @@ namespace EnrollmentStudent.View.Pages
                     {
                         if ((MessageBox.Show($"Do you want to {((EnrollmentStatus)cbEnrollmentStatus.SelectedItem).Description}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes)) == MessageBoxResult.Yes)
                         {
-                            if (Db.UpdateStudentEnrollmentStatus(SQL.ConString, myStudent.StudentID, (int)cbEnrollmentStatus.SelectedValue, currentTermSY.ID) > 0)
+                            int result = Db.UpdateStudentEnrollmentStatus(SQL.ConString, myStudent.StudentID, (int)cbEnrollmentStatus.SelectedValue, currentTermSY.ID);
+                            if (result > 0)
                             {
                                 MessageBox.Show("You have changed your enrollment status!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                lastSelectedStatusID = (int)cbEnrollmentStatus.SelectedValue;
                             }
-                            lastSelectedStatusID = (int)cbEnrollmentStatus.SelectedValue;
+                            if (result == -2)
+                            {
+                                MessageBox.Show("You have reached the limit for finalization!", "Finalize Limit Reached", MessageBoxButton.OK, MessageBoxImage.Information);
+                                cbEnrollmentStatus.SelectedValue = lastSelectedStatusID;
+                            }
                             FinalizeTable();
                         }
                         else
@@ -216,8 +229,14 @@ namespace EnrollmentStudent.View.Pages
                 }
                 else
                 {
-                    MessageBox.Show("You have not chosen section for your courses yet!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    cbEnrollmentStatus.SelectedValue = lastSelectedStatusID;
+                    if (!bHandled)
+                    {
+                        MessageBox.Show("You have not chosen section for your courses yet!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        bHandled = true; 
+                        cbEnrollmentStatus.SelectedValue = lastSelectedStatusID;
+                    }
+                    else
+                        bHandled = false; 
                 }
             }
         }
